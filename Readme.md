@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Глеб  Орлов](https://up.htmlacademy.ru/react/14/user/1535715).
-* Наставник: `Неизвестно`.
+* Наставник: [Arthur Litovko](https://github.com/baileys-li).
 
 ---
 
