@@ -1,3 +1,17 @@
 const CARDS_COUNT: number = 5;
 
-export {CARDS_COUNT};
+enum AppRoute {
+  Root = '/',
+  Login = '/login',
+  Offer = '/offer/:id',
+  Favorites = '/favorites',
+  Error = '/error'
+}
+
+enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UKNOWN'
+}
+
+export {CARDS_COUNT, AppRoute, AuthorizationStatus};
