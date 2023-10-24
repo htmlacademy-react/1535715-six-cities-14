@@ -1,4 +1,4 @@
-import { RANDOM_HOST_IMAGE, RANDOM_MOCK_IMAGE } from '../const';
+import { RANDOM_MOCK_IMAGE } from '../const';
 import OfferType from '../types/offer-type';
 
 const Offers: OfferType[] = [
