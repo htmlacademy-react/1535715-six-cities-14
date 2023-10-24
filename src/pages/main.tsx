@@ -1,11 +1,12 @@
-import CardComponent from '../components/card';
 import HeaderComponent from '../components/header';
+import OffersListComponent from '../components/offers-list';
+import OfferType from '../types/offer-type';
 
-interface IMainPageProps {
-  cardsCount: number;
+type MainPageProps = {
+  offers: OfferType[];
 }
 
-export default function MainPage({cardsCount}: IMainPageProps): JSX.Element {
+export default function MainPage({offers}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <HeaderComponent/>
@@ -52,7 +53,7 @@ export default function MainPage({cardsCount}: IMainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{cardsCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -68,9 +69,7 @@ export default function MainPage({cardsCount}: IMainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {Array.from({length: cardsCount}, (_, index: number) => <CardComponent key = {index}/>)}
-              </div>
+              <OffersListComponent offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
