@@ -31,7 +31,7 @@ export default function CardComponent({offer}: CardProps): JSX.Element {
           </div>
           <button
             onClick={() => setFavoriteStatus((prevStatus) => !prevStatus)}
-            className={`place-card__bookmark-button ${favoriteStatus && 'place-card__bookmark-button--active'} button`}
+            className={`place-card__bookmark-button button ${favoriteStatus ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
