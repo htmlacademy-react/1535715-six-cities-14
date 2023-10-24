@@ -5,14 +5,19 @@ import { AppRoute } from '../const';
 
 type CardProps = {
   offer: OfferType;
+  handleCardMouseOver: (id: string) => void;
 }
 
-export default function CardComponent({offer}: CardProps): JSX.Element {
+export default function CardComponent({offer, handleCardMouseOver}: CardProps): JSX.Element {
 
   const [favoriteStatus, setFavoriteStatus] = useState(offer.isFavorite);
 
+  const cardMouseOverHandler = () => {
+    handleCardMouseOver(offer.id);
+  };
+
   return (
-    <article className="cities__card place-card">
+    <article onMouseEnter={cardMouseOverHandler} id={offer.id} className="cities__card place-card">
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
