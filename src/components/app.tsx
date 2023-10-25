@@ -4,20 +4,25 @@ import FavouritePage from '../pages/favourite';
 import OfferPage from '../pages/offer';
 import Error from '../pages/error';
 import PrivateRouteComponent from './private-route';
-import { CARDS_COUNT, AppRoute, AuthorizationStatus } from '../const';
+import OfferType from '../types/offer-type';
+import { AppRoute, AuthorizationStatus } from '../const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-export default function App(): JSX.Element {
+type AppProps = {
+  offers: OfferType[];
+}
+
+export default function App({offers}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<MainPage cardsCount={CARDS_COUNT}/>}/>
+        <Route path={AppRoute.Root} element={<MainPage offers={offers}/>}/>
         <Route path={AppRoute.Login} element={<LoginPage/>}/>
         <Route
           path={AppRoute.Favorites}
-          element={<PrivateRouteComponent authorizationStatus={AuthorizationStatus.NoAuth}><FavouritePage /></PrivateRouteComponent>}
+          element={<PrivateRouteComponent authorizationStatus={AuthorizationStatus.Auth}><FavouritePage offers={offers}/></PrivateRouteComponent>}
         />
-        <Route path={AppRoute.Offer} element={<OfferPage/>}/>
+        <Route path={AppRoute.OfferId} element={<OfferPage offers={offers}/>}/>
         <Route path='*' element={<Error/>}/>
       </Routes>
     </BrowserRouter>
