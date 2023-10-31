@@ -12,13 +12,13 @@ export default function FavouritePage({ offers }: FavoriteProps): JSX.Element {
 
   const favoriteOffersList = offers.reduce<FavoriteOfferType>((accumulator, currentOffer) => {
     if (currentOffer.isFavorite) {
-      const existingCity = accumulator.find((item) => item.city === currentOffer.city);
+      const existingCity = accumulator.find((item) => item.city === currentOffer.city.name);
 
       if (existingCity) {
         existingCity.favoriteOffers.push(currentOffer);
       } else {
         accumulator.push({
-          city: currentOffer.city,
+          city: currentOffer.city.name,
           favoriteOffers: [currentOffer],
         });
       }
@@ -53,7 +53,7 @@ export default function FavouritePage({ offers }: FavoriteProps): JSX.Element {
                         </div>}
                         <div className="favorites__image-wrapper place-card__image-wrapper">
                           <a href="#">
-                            <img className="place-card__image" src={offer.imageUrl} width="150" height="110" alt="Place image"/>
+                            <img className="place-card__image" src={offer.previewImage} width="150" height="110" alt="Place image"/>
                           </a>
                         </div>
                         <div className="favorites__card-info place-card__info">
@@ -82,7 +82,7 @@ export default function FavouritePage({ offers }: FavoriteProps): JSX.Element {
                           <h2 className="place-card__name">
                             <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
                           </h2>
-                          <p className="place-card__type">{offer.housingType}</p>
+                          <p className="place-card__type">{offer.type}</p>
                         </div>
                       </article>
                     ))}

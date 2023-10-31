@@ -66,10 +66,10 @@ export default function OfferPage({ offers }: OfferProps): JSX.Element {
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {selectedOffer.housingType}
+                  {selectedOffer.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {`${selectedOffer.bedroomCount} Bedroom${selectedOffer.bedroomCount > 1 ? 's' : ''}`}
+                  {`${selectedOffer.bedrooms} Bedroom${selectedOffer.bedrooms > 1 ? 's' : ''}`}
                 </li>
                 <li className="offer__feature offer__feature--adults">
                   {`Max ${selectedOffer.maxAdults} adult${selectedOffer.maxAdults > 1 ? 's' : ''}`}
@@ -82,7 +82,7 @@ export default function OfferPage({ offers }: OfferProps): JSX.Element {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {selectedOffer.insideStuff.map((stuff) => (
+                  {selectedOffer.goods.map((stuff) => (
                     <li className="offer__inside-item" key={selectedOffer.id}>
                       {stuff}
                     </li>
@@ -93,7 +93,7 @@ export default function OfferPage({ offers }: OfferProps): JSX.Element {
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className={`offer__avatar-wrapper user__avatar-wrapper ${selectedOffer.host.isPro ? 'offer__avatar-wrapper--pro' : ''}`}>
-                    <img className="offer__avatar user__avatar" src={selectedOffer.host.imageUrl} width="74" height="74" alt="Host avatar" />
+                    <img className="offer__avatar user__avatar" src={selectedOffer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="offer__user-name">
                     {selectedOffer.host.name}
@@ -104,7 +104,7 @@ export default function OfferPage({ offers }: OfferProps): JSX.Element {
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                    {selectedOffer.host.description}
+                    {selectedOffer.description}
                   </p>
                 </div>
               </div>

@@ -1,17 +1,18 @@
 import CardComponent from './card';
 import OfferType from '../types/offer-type';
 import { useState } from 'react';
+import MapComponent from './map';
+import { Amsterdam } from '../const';
 
 type OffersListProps = {
   offers: OfferType[];
 };
 
 export default function OffersListComponent({ offers }: OffersListProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState({});
+  const [activeCard, setActiveCard] = useState<OfferType['id'] | null>(null);
 
-  const handleCardMouseOver = (cardId: string) => {
-    const currentActiveCard = offers.find((offer) => offer.id === cardId);
-    setActiveCard({...currentActiveCard});
+  const handleCardMouseOver = (cardId: OfferType['id'] | null) => {
+    setActiveCard(cardId);
   };
 
   return (
@@ -36,12 +37,12 @@ export default function OffersListComponent({ offers }: OffersListProps): JSX.El
         </form>
         <div className="cities__places-list places__list tabs__content">
           {offers.map((offer) => (
-            <CardComponent key={offer.id} offer={offer} handleCardMouseOver={handleCardMouseOver}/>
+            <CardComponent key={offer.id} offer={offer} onCardHover={handleCardMouseOver}/>
           ))}
         </div>
       </section>
       <div className="cities__right-section">
-        <section className="cities__map map"></section>
+        <MapComponent city={Amsterdam} points={offers} selectedPoint={activeCard}/>
       </div>
     </div>
   );
