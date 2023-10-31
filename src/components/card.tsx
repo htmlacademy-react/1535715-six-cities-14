@@ -2,6 +2,7 @@ import OfferType from '../types/offer-type';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../const';
+import { calculateStarRating } from '../util';
 
 type CardProps = {
   offer: OfferType;
@@ -56,7 +57,7 @@ export default function CardComponent({offer, onCardHover}: CardProps): JSX.Elem
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80px'}}></span>
+            <span style={{width: calculateStarRating(offer.rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -1,8 +1,8 @@
 import CardComponent from './card';
 import OfferType from '../types/offer-type';
-import { useState } from 'react';
 import MapComponent from './map';
-import { Amsterdam } from '../const';
+import { useState } from 'react';
+import { MapCity } from '../const';
 
 type OffersListProps = {
   offers: OfferType[];
@@ -42,7 +42,7 @@ export default function OffersListComponent({ offers }: OffersListProps): JSX.El
         </div>
       </section>
       <div className="cities__right-section">
-        <MapComponent city={Amsterdam} points={offers} selectedPoint={activeCard}/>
+        <MapComponent city={MapCity['Amsterdam']} points={offers} selectedPoint={activeCard}/>
       </div>
     </div>
   );
