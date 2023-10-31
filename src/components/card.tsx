@@ -5,19 +5,28 @@ import { AppRoute } from '../const';
 
 type CardProps = {
   offer: OfferType;
-  handleCardMouseOver: (id: string) => void;
+  onCardHover: (id: OfferType['id'] | null) => void;
 }
 
-export default function CardComponent({offer, handleCardMouseOver}: CardProps): JSX.Element {
+export default function CardComponent({offer, onCardHover}: CardProps): JSX.Element {
 
   const [favoriteStatus, setFavoriteStatus] = useState(offer.isFavorite);
 
-  const cardMouseOverHandler = () => {
-    handleCardMouseOver(offer.id);
-  };
+  function handleMouseEnter() {
+    onCardHover?.(offer.id);
+  }
+
+  function handleMouseLeave() {
+    onCardHover?.(null);
+  }
 
   return (
-    <article onMouseEnter={cardMouseOverHandler} id={offer.id} className="cities__card place-card">
+    <article
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      id={offer.id}
+      className="cities__card place-card"
+    >
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -25,7 +34,7 @@ export default function CardComponent({offer, handleCardMouseOver}: CardProps): 
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={offer.imageUrl} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info">
@@ -54,7 +63,7 @@ export default function CardComponent({offer, handleCardMouseOver}: CardProps): 
         <h2 className="place-card__name">
           <Link to={`${AppRoute.Offer}${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.housingType}</p>
+        <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );

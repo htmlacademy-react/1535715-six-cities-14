@@ -1,20 +1,24 @@
+import City from './city';
 import Host from './host';
-import HousingType from './housing-type';
+import Location from './location';
 
 type OfferType = {
-  id: string;
-  city: string;
-  imageUrl: string;
-  price: number;
-  bedroomCount: number;
-  maxAdults: number;
-  insideStuff: string[];
-  title: string;
-  housingType: HousingType;
+  bedrooms: number;
+  city: City;
+  description: string;
+  goods: string[];
   host: Host;
-  rating: number;
+  id: string;
+  images: string[];
   isFavorite: boolean;
   isPremium: boolean;
+  location: Location;
+  maxAdults: number;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
+  type: string;
 }
 
 export default OfferType;

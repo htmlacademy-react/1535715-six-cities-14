@@ -4,82 +4,138 @@ import OfferType from '../types/offer-type';
 const Offers: OfferType[] = [
   {
     id: 'odkasjdi',
-    city: 'Amsterdam',
-    imageUrl: RANDOM_MOCK_IMAGE,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    images: [RANDOM_MOCK_IMAGE],
     isPremium: true,
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
     price: 4315,
     title: 'bla bla bla',
-    housingType: 'Apartment',
+    type: 'Apartment',
     isFavorite: true,
     rating: 5,
-    bedroomCount: 2,
+    bedrooms: 2,
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, iste!',
+    previewImage: RANDOM_MOCK_IMAGE,
     maxAdults: 5,
-    insideStuff: ['wifi', 'blu-ray', '4k'],
+    goods: ['wifi', 'blu-ray', '4k'],
     host: {
       name: 'Anna',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae alias tempora reiciendis exercitationem ducimus non magnam maiores, animi magni expedita nam dicta aliquam beatae porro laudantium eligendi! Dolorem, iste aperiam.',
       isPro: true,
-      imageUrl: 'https://i.pravatar.cc/74'
+      avatarUrl: 'https://i.pravatar.cc/74',
+      id: 21
     }
   },
   {
     id: 'odkasjdidas',
-    city: 'Amsterdam',
-    imageUrl: RANDOM_MOCK_IMAGE,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    images: [RANDOM_MOCK_IMAGE],
     isPremium: false,
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
     price: 411,
     title: 'another bla bla bla',
-    housingType: 'Hotel',
+    type: 'Hotel',
+    previewImage: RANDOM_MOCK_IMAGE,
     isFavorite: true,
     rating: 2,
-    bedroomCount: 1,
+    bedrooms: 1,
+    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae alias tempora reiciendis exercitationem ducimus non magnam maiores, animi magni expedita nam dicta aliquam beatae porro laudantium eligendi! Dolorem, iste aperiam.',
     maxAdults: 3,
-    insideStuff: ['wifi', 'blu-ray'],
+    goods: ['wifi', 'blu-ray'],
     host: {
       name: 'Carrie',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae alias tempora reiciendis exercitationem ducimus non magnam maiores, animi magni expedita nam dicta aliquam beatae porro laudantium eligendi! Dolorem, iste aperiam.',
       isPro: false,
-      imageUrl: 'https://i.pravatar.cc/74'
+      avatarUrl: 'https://i.pravatar.cc/74',
+      id: 43
     }
   },
   {
     id: 'odkasjd121i',
-    city: 'Cologne',
-    imageUrl: RANDOM_MOCK_IMAGE,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    images: [RANDOM_MOCK_IMAGE],
     isPremium: false,
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 8
+    },
     price: 2222,
     title: 'again bla bla bla',
-    housingType: 'House',
+    type: 'House',
+    previewImage: RANDOM_MOCK_IMAGE,
     isFavorite: true,
     rating: 3,
-    bedroomCount: 4,
+    bedrooms: 4,
+    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae alias tempora reiciendis exercitationem ducimus non magnam maiores, animi magni expedita nam dicta aliquam beatae porro laudantium eligendi! Dolorem, iste aperiam.',
     maxAdults: 2,
-    insideStuff: ['wifi', 'blu-ray', '8k'],
+    goods: ['wifi', 'blu-ray', '8k'],
     host: {
       name: 'John',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae alias tempora reiciendis exercitationem ducimus non magnam maiores, animi magni expedita nam dicta aliquam beatae porro laudantium eligendi! Dolorem, iste aperiam.',
       isPro: true,
-      imageUrl: 'https://i.pravatar.cc/74'
+      avatarUrl: 'https://i.pravatar.cc/74',
+      id: 46
     }
   },
   {
     id: 'odkasjdasdi',
-    city: 'Rotterdam',
-    imageUrl: RANDOM_MOCK_IMAGE,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    images: [RANDOM_MOCK_IMAGE],
     isPremium: true,
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8
+    },
     price: 1111,
     title: 'alb alb alb',
-    housingType: 'Room',
+    type: 'Room',
     isFavorite: false,
     rating: 4,
-    bedroomCount: 3,
+    previewImage: RANDOM_MOCK_IMAGE,
+    bedrooms: 3,
+    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae alias tempora reiciendis exercitationem ducimus non magnam maiores, animi magni expedita nam dicta aliquam beatae porro laudantium eligendi! Dolorem, iste aperiam.',
     maxAdults: 3,
-    insideStuff: ['wifi', 'blu-ray', 'bluetooth'],
+    goods: ['wifi', 'blu-ray', 'bluetooth'],
     host: {
       name: 'Masha',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae alias tempora reiciendis exercitationem ducimus non magnam maiores, animi magni expedita nam dicta aliquam beatae porro laudantium eligendi! Dolorem, iste aperiam.',
       isPro: false,
-      imageUrl: 'https://i.pravatar.cc/74'
+      avatarUrl: 'https://i.pravatar.cc/74',
+      id: 65
     }
   }
 ];

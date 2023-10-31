@@ -1,9 +1,9 @@
 
 type Host = {
-  name: string;
+  avatarUrl: 'https://i.pravatar.cc/74';
+  id: number;
   isPro: boolean;
-  description: string;
-  imageUrl: 'https://i.pravatar.cc/74';
+  name: string;
 }
 
 export default Host;
