@@ -2,13 +2,15 @@ import OfferType from '../types/offer-type';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../const';
+import { calculateStarRating } from '../util';
 
 type CardProps = {
   offer: OfferType;
-  onCardHover: (id: OfferType['id'] | null) => void;
+  onCardHover?: (id: OfferType['id'] | null) => void;
+  page: string;
 }
 
-export default function CardComponent({offer, onCardHover}: CardProps): JSX.Element {
+export default function CardComponent({offer, onCardHover, page}: CardProps): JSX.Element {
 
   const [favoriteStatus, setFavoriteStatus] = useState(offer.isFavorite);
 
@@ -25,14 +27,14 @@ export default function CardComponent({offer, onCardHover}: CardProps): JSX.Elem
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       id={offer.id}
-      className="cities__card place-card"
+      className={`${page}__card place-card`}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${page}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
         </a>
@@ -56,7 +58,7 @@ export default function CardComponent({offer, onCardHover}: CardProps): JSX.Elem
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80px'}}></span>
+            <span style={{width: calculateStarRating(offer.rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -7,12 +7,14 @@ import PrivateRouteComponent from './private-route';
 import OfferType from '../types/offer-type';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ReviewType from '../types/review';
 
 type AppProps = {
   offers: OfferType[];
+  reviews: ReviewType[];
 }
 
-export default function App({offers}: AppProps): JSX.Element {
+export default function App({offers, reviews}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -22,7 +24,7 @@ export default function App({offers}: AppProps): JSX.Element {
           path={AppRoute.Favorites}
           element={<PrivateRouteComponent authorizationStatus={AuthorizationStatus.Auth}><FavouritePage offers={offers}/></PrivateRouteComponent>}
         />
-        <Route path={AppRoute.OfferId} element={<OfferPage offers={offers}/>}/>
+        <Route path={AppRoute.OfferId} element={<OfferPage offers={offers} reviews={reviews}/>}/>
         <Route path='*' element={<Error/>}/>
       </Routes>
     </BrowserRouter>
