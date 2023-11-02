@@ -5,12 +5,14 @@ type CityObject = {
 }
 
 export const CARDS_COUNT: number = 5;
-export const IMAGES_MAX_COUNT = 6;
+export const MAX_OFFER_IMAGES = 6;
+export const MAX_REVIEWS_COUNT = 10;
 export const COMMENT_MIN_LENGTH = 50;
 export const COMMENT_MAX_LENGTH = 300;
 export const RANDOM_MOCK_IMAGE = 'https://loremflickr.com/260/200';
-export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
-export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const RANDOM_REVIEW_IMAGE = 'https://loremflickr.com/54/54';
+export const URL_MARKER_DEFAULT = '../public/img/pin.svg';
+export const URL_MARKER_CURRENT = '../public/img/pin-active.svg';
 export const MAP_LAYER_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const OPENSOURCE_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
@@ -28,6 +30,18 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UKNOWN'
 }
+
+export enum MapPage {
+  MainPage = 'cities',
+  OfferPage = 'offer'
+}
+
+export enum CardPage {
+  MainPage = 'cities',
+  OfferPage = 'near-places'
+}
+
+export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const MAP_CITY: CityObject = {
   'Paris': {

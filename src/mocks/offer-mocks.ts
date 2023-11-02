@@ -1,7 +1,7 @@
 import { RANDOM_MOCK_IMAGE } from '../const';
 import OfferType from '../types/offer-type';
 
-const Offers: OfferType[] = [
+const OfferMocks: OfferType[] = [
   {
     id: 'odkasjdi',
     city: {
@@ -42,7 +42,7 @@ const Offers: OfferType[] = [
       location: {
         latitude: 52.370216,
         longitude: 4.895168,
-        zoom: 10
+        zoom: 12
       },
       name: 'Amsterdam'
     },
@@ -108,17 +108,17 @@ const Offers: OfferType[] = [
     id: 'odkasjdasdi',
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 48.864716,
+        longitude: 2.349014,
         zoom: 10
       },
-      name: 'Amsterdam'
+      name: 'Paris'
     },
     images: [RANDOM_MOCK_IMAGE],
     isPremium: true,
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
+      latitude: 48.864716,
+      longitude: 2.379014,
       zoom: 8
     },
     price: 1111,
@@ -140,4 +140,4 @@ const Offers: OfferType[] = [
   }
 ];
 
-export default Offers;
+export default OfferMocks;
