@@ -3,13 +3,14 @@ import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../const';
 import City from '../types/city';
 import OfferType from '../types/offer-type';
 import leaflet from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 import useMap from '../hooks/use-map';
+import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   city: City;
   points: OfferType[];
-  selectedPoint: string | null;
+  selectedPoint?: string | null;
+  page: string;
 }
 
 const defaultCustomIcon = leaflet.icon({
@@ -24,7 +25,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40]
 });
 
-export default function MapComponent({ city, points, selectedPoint }: MapProps): JSX.Element {
+export default function MapComponent({ city, points, selectedPoint, page }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -51,7 +52,23 @@ export default function MapComponent({ city, points, selectedPoint }: MapProps):
     }
   }, [map, points, selectedPoint]);
 
+  useEffect(() => {
+    if(map) {
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+    }
+  }, [map, city]);
+
   return (
-    <section className="cities__map map" ref={mapRef}></section>
+    <section
+      className={`${page}__map map`}
+      ref={mapRef}
+      style={{
+        height: '100%',
+        minHeight: '500px',
+        width: '100%',
+        maxWidth: '1144px',
+        margin: '0 auto',
+      }}
+    />
   );
 }
