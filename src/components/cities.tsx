@@ -1,14 +1,12 @@
-import { useState } from 'react';
 import { Cities } from '../const';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { changeCitySlice } from '../store/slices/change-city-slice';
 
-type CitiesProps = {
-  onCityClick: (city: string) => void;
-}
-
-export default function CitiesComponent({onCityClick}: CitiesProps): JSX.Element {
-  const [stateCity, setStateCity] = useState('Amsterdam');
+export default function CitiesComponent(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const stateCity = useAppSelector((state) => state.changeCity.city);
 
   return (
     <section className="locations container">
@@ -17,8 +15,7 @@ export default function CitiesComponent({onCityClick}: CitiesProps): JSX.Element
           <li key={city} className="locations__item">
             <Link
               onClick={() => {
-                setStateCity(city);
-                onCityClick(city);
+                dispatch(changeCitySlice.actions.changeCity(city));
               }}
               className={classnames(
                 'locations__item-link',
