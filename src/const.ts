@@ -4,6 +4,7 @@ type CityObject = {
   [key: string]: City;
 }
 
+export const DEFAULT_CITY = 'Paris';
 export const CARDS_COUNT: number = 5;
 export const MAX_OFFER_IMAGES = 6;
 export const MAX_REVIEWS_COUNT = 10;
