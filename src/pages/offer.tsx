@@ -122,6 +122,7 @@ export default function OfferPage({ offers, reviews }: OfferProps): JSX.Element 
               city={selectedOffer.city}
               points={nearbyOffers}
               page={MapPage.OfferPage}
+              selectedPoint={selectedOffer.id}
             />
           </section>
         </section>
