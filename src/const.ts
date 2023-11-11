@@ -44,6 +44,13 @@ export enum CardPage {
 
 export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
+export const SortType = {
+  POPULAR: 'Popular',
+  PRICE_LTH: 'Price: low to high',
+  PRICE_HTL: 'Price: high to low',
+  TOP_RATED: 'Top rated first'
+};
+
 export const MAP_CITY: CityObject = {
   'Paris': {
     name: 'Paris',

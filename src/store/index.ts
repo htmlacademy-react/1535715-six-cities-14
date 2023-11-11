@@ -1,11 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 // import { reducer } from './reducer';
-import { changeCitySlice } from './slices/change-city-slice';
-import { fillOffersSlice } from './slices/fill-offers-slice';
+import { offersSlice } from './slices/offers-slice';
 
 const reducer = combineReducers({
-  [changeCitySlice.name]: changeCitySlice.reducer,
-  [fillOffersSlice.name]: fillOffersSlice.reducer
+  [offersSlice.name]: offersSlice.reducer,
 });
 
 export const store = configureStore({reducer});

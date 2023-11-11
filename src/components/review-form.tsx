@@ -38,7 +38,7 @@ export default function ReviewFormComponent(): JSX.Element {
                 name="rating"
                 value={score}
                 id={`${score}-stars`}
-                checked={score === ratingValue}
+                defaultChecked={score === ratingValue}
                 type="radio"
               />
               <label

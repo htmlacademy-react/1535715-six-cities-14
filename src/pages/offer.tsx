@@ -9,16 +9,18 @@ import { calculateStarRating } from '../util';
 import { useParams } from 'react-router-dom';
 import { MAX_OFFER_IMAGES, MapPage } from '../const';
 import NearbyListComponent from '../components/nearby-list';
+import { useAppSelector } from '../hooks';
 
 type OfferProps = {
-  offers: OfferType[];
   reviews: ReviewType[];
 }
 
-export default function OfferPage({ offers, reviews }: OfferProps): JSX.Element {
+export default function OfferPage({ reviews }: OfferProps): JSX.Element {
   const { id: offerId } = useParams();
-  const selectedOffer = offers.find((offer) => offer.id === offerId) as OfferType;
-  const nearbyOffers = offers.filter((offer) => offer.city.name === selectedOffer.city.name);
+  const allOffers = useAppSelector((state) => state.offers.offers);
+  const selectedOffer = allOffers.find((offer) => offer.id === offerId) as OfferType;
+
+  const nearbyOffers = allOffers.filter((offer) => offer.city.name === selectedOffer.city.name);
 
   return (
     <div className="page">
@@ -49,7 +51,7 @@ export default function OfferPage({ offers, reviews }: OfferProps): JSX.Element 
                   className={classnames(
                     'offer__bookmark-button',
                     'button',
-                    {'offer__bookmark-button--active': selectedOffer.isFavorite}
+                    { 'offer__bookmark-button--active': selectedOffer.isFavorite }
                   )}
                   type="button"
                 >
@@ -85,7 +87,7 @@ export default function OfferPage({ offers, reviews }: OfferProps): JSX.Element 
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
                   {selectedOffer.goods.map((stuff) => (
-                    <li className="offer__inside-item" key={selectedOffer.id}>
+                    <li className="offer__inside-item" key={stuff}>
                       {stuff}
                     </li>
                   ))}
@@ -122,11 +124,12 @@ export default function OfferPage({ offers, reviews }: OfferProps): JSX.Element 
               city={selectedOffer.city}
               points={nearbyOffers}
               page={MapPage.OfferPage}
+              selectedPoint={selectedOffer.id}
             />
           </section>
         </section>
         <div className="container">
-          <NearbyListComponent nearbyOffers={nearbyOffers}/>
+          <NearbyListComponent nearbyOffers={nearbyOffers} />
         </div>
       </main>
     </div>
