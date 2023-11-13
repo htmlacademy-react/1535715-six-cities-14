@@ -1,16 +1,13 @@
 import { Link } from 'react-router-dom';
 import HeaderComponent from '../components/header';
 import FavoriteOfferType from '../types/favorite-offer';
-import OfferType from '../types/offer-type';
 import { calculateStarRating } from '../util';
+import { useAppSelector } from '../hooks';
 
-type FavoriteProps = {
-  offers: OfferType[];
-}
+export default function FavouritePage(): JSX.Element {
+  const allOffers = useAppSelector((state) => state.offers.offers);
 
-export default function FavouritePage({ offers }: FavoriteProps): JSX.Element {
-
-  const favoriteOffersList = offers.reduce<FavoriteOfferType>((accumulator, currentOffer) => {
+  const favoriteOffersList = allOffers.reduce<FavoriteOfferType>((accumulator, currentOffer) => {
     if (currentOffer.isFavorite) {
       const existingCity = accumulator.find((item) => item.city === currentOffer.city.name);
 
