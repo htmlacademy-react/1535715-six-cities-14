@@ -1,12 +1,12 @@
 import { DEFAULT_CITY } from '../../const';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import OfferMocks from '../../mocks/offer-mocks';
 import { SortType } from '../../const';
+import OfferType from '../../types/offer-type';
 
 const initialState = {
   city: DEFAULT_CITY,
-  offers: OfferMocks,
-  sortingType: SortType.POPULAR
+  offers: [] as OfferType[],
+  sortingType: SortType.POPULAR,
 };
 
 export const offersSlice = createSlice({
@@ -18,6 +18,9 @@ export const offersSlice = createSlice({
     },
     changeSortingType(state, action: PayloadAction<string>) {
       state.sortingType = action.payload;
-    }
-  }
+    },
+    loadOffers(state, action: PayloadAction<OfferType[]>) {
+      state.offers = action.payload;
+    },
+  },
 });

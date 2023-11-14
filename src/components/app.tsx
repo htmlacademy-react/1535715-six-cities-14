@@ -7,12 +7,21 @@ import PrivateRouteComponent from './private-route';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ReviewType from '../types/review';
+import { useAppSelector } from '../hooks';
+import LoadingComponent from './loading';
 
 type AppProps = {
   reviews: ReviewType[];
 }
 
 export default function App({ reviews }: AppProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.auth.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state) => state.loading.isLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+    return <LoadingComponent />;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
