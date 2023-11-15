@@ -3,10 +3,18 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SortType } from '../../const';
 import OfferType from '../../types/offer-type';
 
-const initialState = {
+type InitialStateType = {
+  city: string;
+  offers: OfferType[] | [];
+  sortingType: string;
+  activeCard: string | null;
+};
+
+const initialState: InitialStateType = {
   city: DEFAULT_CITY,
   offers: [] as OfferType[],
   sortingType: SortType.POPULAR,
+  activeCard: null,
 };
 
 export const offersSlice = createSlice({
@@ -22,5 +30,11 @@ export const offersSlice = createSlice({
     loadOffers(state, action: PayloadAction<OfferType[]>) {
       state.offers = action.payload;
     },
+    getActiveCard(state, action: PayloadAction<string | null>) {
+      state.activeCard = action.payload;
+    },
   },
 });
+
+export const { changeCity, changeSortingType, getActiveCard, loadOffers } =
+  offersSlice.actions;

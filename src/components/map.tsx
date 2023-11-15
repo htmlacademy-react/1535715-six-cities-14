@@ -5,11 +5,11 @@ import OfferType from '../types/offer-type';
 import leaflet from 'leaflet';
 import useMap from '../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
+import { useAppSelector } from '../hooks';
 
 type MapProps = {
   city: City;
   points: OfferType[];
-  selectedPoint?: string | null;
   page: string;
 }
 
@@ -25,9 +25,10 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40]
 });
 
-export default function MapComponent({ city, points, selectedPoint, page }: MapProps): JSX.Element {
+export default function MapComponent({ city, points, page }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const selectedPoint = useAppSelector((state) => state.offers.activeCard);
 
   useEffect(() => {
     if (map) {
@@ -53,7 +54,7 @@ export default function MapComponent({ city, points, selectedPoint, page }: MapP
   }, [map, points, selectedPoint]);
 
   useEffect(() => {
-    if(map) {
+    if (map) {
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
   }, [map, city]);

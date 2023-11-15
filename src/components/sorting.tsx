@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useState, MouseEvent } from 'react';
 import { SortType } from '../const';
 import { useAppDispatch } from '../hooks';
-import { offersSlice } from '../store/slices/offers-slice';
+import { changeSortingType } from '../store/slices/offers-slice';
 
 export default function SortingComponent(): JSX.Element {
   const [isOpened, setIsOpened] = useState(false);
@@ -12,13 +12,13 @@ export default function SortingComponent(): JSX.Element {
 
   const handleSortClick = (evt: MouseEvent<HTMLLIElement>) => {
     const sortItem = evt.currentTarget;
-    if(sortItem.textContent === activeSortType) {
+    if (sortItem.textContent === activeSortType) {
       return;
     }
 
     setIsOpened(!isOpened);
     setActiveSortType(sortItem.textContent!);
-    dispatch(offersSlice.actions.changeSortingType(sortItem.textContent!));
+    dispatch(changeSortingType(sortItem.textContent!));
   };
 
   return (
@@ -44,7 +44,7 @@ export default function SortingComponent(): JSX.Element {
           <li
             className={classNames(
               'places__option',
-              {'places__option--active': sort === activeSortType}
+              { 'places__option--active': sort === activeSortType }
             )}
             tabIndex={0}
             key={sort}

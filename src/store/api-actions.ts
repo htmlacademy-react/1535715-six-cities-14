@@ -10,14 +10,16 @@ import { UserData } from '../types/user-data';
 import { removeToken, setToken } from '../services/token';
 import { loadingSlice } from './slices/loading-slice';
 
+type ThunkExtraType = {
+  dipatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+};
+
 export const fetchOffersAction = createAsyncThunk<
   void,
   undefined,
-  {
-    dipatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
+  ThunkExtraType
 >('fetchOffers', async (_arg, { dispatch, extra: api }) => {
   const { data } = await api.get<OfferType[]>(APIRoute.Offers);
   dispatch(loadingSlice.actions.setOffersLoadingStatus(false));
@@ -27,11 +29,7 @@ export const fetchOffersAction = createAsyncThunk<
 export const checkAuthAction = createAsyncThunk<
   void,
   undefined,
-  {
-    dipatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
+  ThunkExtraType
 >('checkAuth', async (_arg, { dispatch, extra: api }) => {
   try {
     await api.get(APIRoute.Login);
@@ -43,32 +41,24 @@ export const checkAuthAction = createAsyncThunk<
   }
 });
 
-export const loginAction = createAsyncThunk<
-  void,
-  AuthData,
-  {
-    dipatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
+export const loginAction = createAsyncThunk<void, AuthData, ThunkExtraType>(
+  'login',
+  async ({ login: email, password }, { dispatch, extra: api }) => {
+    const {
+      data: { token },
+    } = await api.post<UserData>(APIRoute.Login, { email, password });
+    setToken(token);
+    dispatch(authSlice.actions.requireAuthorization(AuthorizationStatus.Auth));
   }
->('login', async ({ login: email, password }, { dispatch, extra: api }) => {
-  const {
-    data: { token },
-  } = await api.post<UserData>(APIRoute.Login, { email, password });
-  setToken(token);
-  dispatch(authSlice.actions.requireAuthorization(AuthorizationStatus.Auth));
-});
+);
 
-export const logoutAction = createAsyncThunk<
-  void,
-  undefined,
-  {
-    dipatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
+export const logoutAction = createAsyncThunk<void, undefined, ThunkExtraType>(
+  'logout',
+  async (_arg, { dispatch, extra: api }) => {
+    await api.delete(APIRoute.Logout);
+    removeToken();
+    dispatch(
+      authSlice.actions.requireAuthorization(AuthorizationStatus.NoAuth)
+    );
   }
->('logout', async (_arg, { dispatch, extra: api }) => {
-  await api.delete(APIRoute.Logout);
-  removeToken();
-  dispatch(authSlice.actions.requireAuthorization(AuthorizationStatus.NoAuth));
-});
+);
