@@ -4,6 +4,7 @@ import MapComponent from './map';
 import SortingComponent from './sorting';
 import { CardPage, MAP_CITY } from '../const';
 import { MapPage } from '../const';
+import { useAppSelector } from '../hooks';
 
 type OffersListProps = {
   offers: OfferType[];
@@ -11,6 +12,7 @@ type OffersListProps = {
 };
 
 export default function OffersListComponent({ offers, selectedCity }: OffersListProps): JSX.Element {
+  const selectedPoint = useAppSelector((state) => state.offers.activeCard);
 
   return (
     <div className="cities__places-container container">
@@ -33,6 +35,7 @@ export default function OffersListComponent({ offers, selectedCity }: OffersList
           city={MAP_CITY[selectedCity]}
           points={offers}
           page={MapPage.MainPage}
+          selectedPoint={selectedPoint}
         />
       </div>
     </div>
