@@ -4,6 +4,11 @@ import App from './components/app';
 import ReviewMocks from './mocks/review-mocks';
 import { store } from './store';
 import { Provider } from 'react-redux';
+import { fetchOffersAction, checkAuthAction } from './store/api-actions';
+
+store.dispatch(fetchOffersAction());
+store.dispatch(checkAuthAction());
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

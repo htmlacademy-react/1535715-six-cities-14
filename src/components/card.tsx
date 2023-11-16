@@ -3,23 +3,24 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../const';
 import { calculateStarRating } from '../util';
+import { useAppDispatch } from '../hooks';
+import { getActiveCard } from '../store/slices/offers-slice';
 
 type CardProps = {
   offer: OfferType;
-  onCardHover?: (id: OfferType['id'] | null) => void;
   page: string;
 }
 
-export default function CardComponent({offer, onCardHover, page}: CardProps): JSX.Element {
-
+export default function CardComponent({ offer, page }: CardProps): JSX.Element {
   const [favoriteStatus, setFavoriteStatus] = useState(offer.isFavorite);
+  const dispatch = useAppDispatch();
 
   function handleMouseEnter() {
-    onCardHover?.(offer.id);
+    dispatch(getActiveCard(offer.id));
   }
 
   function handleMouseLeave() {
-    onCardHover?.(null);
+    dispatch(getActiveCard(null));
   }
 
   return (
@@ -58,7 +59,7 @@ export default function CardComponent({offer, onCardHover, page}: CardProps): JS
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: calculateStarRating(offer.rating)}}></span>
+            <span style={{ width: calculateStarRating(offer.rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

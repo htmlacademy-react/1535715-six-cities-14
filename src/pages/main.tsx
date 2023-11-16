@@ -14,15 +14,15 @@ export default function MainPage(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <HeaderComponent/>
+      <HeaderComponent />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <CitiesComponent/>
+          <CitiesComponent />
         </div>
         <div className="cities">
-          <OffersListComponent offers={sortedOffers} selectedCity={selectedCity}/>
+          <OffersListComponent offers={sortedOffers} selectedCity={selectedCity} />
         </div>
       </main>
     </div>

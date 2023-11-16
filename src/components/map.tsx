@@ -9,7 +9,7 @@ import 'leaflet/dist/leaflet.css';
 type MapProps = {
   city: City;
   points: OfferType[];
-  selectedPoint?: string | null;
+  selectedPoint: string | null;
   page: string;
 }
 
@@ -25,7 +25,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40]
 });
 
-export default function MapComponent({ city, points, selectedPoint, page }: MapProps): JSX.Element {
+export default function MapComponent({ city, points, page, selectedPoint }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -53,7 +53,7 @@ export default function MapComponent({ city, points, selectedPoint, page }: MapP
   }, [map, points, selectedPoint]);
 
   useEffect(() => {
-    if(map) {
+    if (map) {
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
   }, [map, city]);

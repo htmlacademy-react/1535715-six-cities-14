@@ -5,6 +5,7 @@ type CityObject = {
 }
 
 export const DEFAULT_CITY = 'Paris';
+export const TIMEOUT_SHOW_ERROR = 2000;
 export const CARDS_COUNT: number = 5;
 export const MAX_OFFER_IMAGES = 6;
 export const MAX_REVIEWS_COUNT = 10;
@@ -29,7 +30,16 @@ export enum AppRoute {
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknown = 'UKNOWN'
+  Unknown = 'UNKNOWN'
+}
+
+export enum APIRoute {
+  Offers = '/offers',
+  NearbyOffers = '/nearby',
+  Favorite = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export enum MapPage {
