@@ -2,7 +2,7 @@ import { Cities } from '../const';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { offersSlice } from '../store/slices/offers-slice';
+import { changeCity } from '../store/slices/offers-slice';
 
 export default function CitiesComponent(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -15,7 +15,7 @@ export default function CitiesComponent(): JSX.Element {
           <li key={city} className="locations__item">
             <Link
               onClick={() => {
-                dispatch(offersSlice.actions.changeCity(city));
+                dispatch(changeCity(city));
               }}
               className={classnames(
                 'locations__item-link',
