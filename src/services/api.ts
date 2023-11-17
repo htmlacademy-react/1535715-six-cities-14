@@ -1,8 +1,17 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 import { getToken } from './token';
+import { StatusCodes } from 'http-status-codes';
+import { proccessErrorHandle } from './error-handle';
+
+type ErrorMessage = {
+  errorType: string;
+  message: string;
+};
 
 const SERVER_URL = 'https://14.design.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
+
+const statusCodes = [StatusCodes.BAD_REQUEST];
 
 export const creatAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -19,6 +28,15 @@ export const creatAPI = (): AxiosInstance => {
 
     return config;
   });
+
+  api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<ErrorMessage>) => {
+      if (error.response && statusCodes.includes(error.response.status)) {
+        proccessErrorHandle(error.response.data.message);
+      }
+    }
+  );
 
   return api;
 };

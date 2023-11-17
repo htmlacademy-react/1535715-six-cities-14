@@ -2,7 +2,7 @@ import City from './types/city';
 
 type CityObject = {
   [key: string]: City;
-}
+};
 
 export const DEFAULT_CITY = 'Paris';
 export const TIMEOUT_SHOW_ERROR = 2000;
@@ -15,22 +15,30 @@ export const RANDOM_MOCK_IMAGE = 'https://loremflickr.com/260/200';
 export const RANDOM_REVIEW_IMAGE = 'https://loremflickr.com/54/54';
 export const URL_MARKER_DEFAULT = '../public/img/pin.svg';
 export const URL_MARKER_CURRENT = '../public/img/pin-active.svg';
-export const MAP_LAYER_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-export const OPENSOURCE_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+export const MAP_LAYER_URL =
+  'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+export const OPENSOURCE_ATTRIBUTION =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
 export enum AppRoute {
   Root = '/',
   Login = '/login',
   Offer = '/offer/',
-  OfferId = 'offer/:id',
+  OfferId = 'offer/:offerId',
   Favorites = '/favorites',
-  Error = '/error'
+  Error = '/error',
+}
+
+export enum RequestStatus {
+  Pending = 'Pending',
+  Success = 'Success',
+  Error = 'Error',
 }
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN'
+  Unknown = 'UNKNOWN',
 }
 
 export enum APIRoute {
@@ -44,70 +52,77 @@ export enum APIRoute {
 
 export enum MapPage {
   MainPage = 'cities',
-  OfferPage = 'offer'
+  OfferPage = 'offer',
 }
 
 export enum CardPage {
   MainPage = 'cities',
-  OfferPage = 'near-places'
+  OfferPage = 'near-places',
 }
 
-export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export const Cities = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
 
 export const SortType = {
   POPULAR: 'Popular',
   PRICE_LTH: 'Price: low to high',
   PRICE_HTL: 'Price: high to low',
-  TOP_RATED: 'Top rated first'
+  TOP_RATED: 'Top rated first',
 };
 
 export const MAP_CITY: CityObject = {
-  'Paris': {
+  Paris: {
     name: 'Paris',
     location: {
       latitude: 48.864716,
       longitude: 2.349014,
-      zoom: 12
-    }
+      zoom: 12,
+    },
   },
-  'Cologne': {
+  Cologne: {
     name: 'Cologne',
     location: {
       latitude: 50.935173,
       longitude: 6.953101,
-      zoom: 12
-    }
+      zoom: 12,
+    },
   },
-  'Brussels': {
+  Brussels: {
     name: 'Brussels',
     location: {
       latitude: 50.85045,
       longitude: 4.34878,
-      zoom: 12
-    }
+      zoom: 12,
+    },
   },
-  'Amsterdam': {
+  Amsterdam: {
     name: 'Amsterdam',
     location: {
       latitude: 52.377956,
-      longitude: 4.897070,
-      zoom: 12
-    }
+      longitude: 4.89707,
+      zoom: 12,
+    },
   },
-  'Hamburg': {
+  Hamburg: {
     name: 'Hamburg',
     location: {
       latitude: 53.551086,
       longitude: 9.993682,
-      zoom: 12
-    }
+      zoom: 12,
+    },
   },
-  'Dusseldorf': {
+  Dusseldorf: {
     name: 'Dusseldorf',
     location: {
       latitude: 51.233334,
       longitude: 6.783333,
-      zoom: 12
-    }
-  }
+      zoom: 12,
+    },
+  },
 };

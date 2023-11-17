@@ -5,6 +5,7 @@ import ReviewMocks from './mocks/review-mocks';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import { fetchOffersAction, checkAuthAction } from './store/api-actions';
+import ErrorComponent from './components/error';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
@@ -17,6 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ErrorComponent />
       <App reviews={ReviewMocks} />
     </Provider>
   </React.StrictMode>
