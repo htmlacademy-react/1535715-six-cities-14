@@ -1,5 +1,6 @@
 import CitiesComponent from '../components/cities';
 import HeaderComponent from '../components/header';
+import LoadingComponent from '../components/loading';
 import OffersListComponent from '../components/offers-list';
 import { useAppSelector } from '../hooks';
 import { sortingCards } from '../util';
@@ -8,6 +9,7 @@ export default function MainPage(): JSX.Element {
   const selectedCity = useAppSelector((state) => state.offers.city);
   const cardsSortingType = useAppSelector((state) => state.offers.sortingType);
   const allOffers = useAppSelector((state) => state.offers.offers);
+  const fecthingOffersStatus = useAppSelector((state) => state.loading.offersFetchingStatus);
 
   const filteredOffersByCity = allOffers.filter((offer) => offer.city.name === selectedCity);
   const sortedOffers = sortingCards[cardsSortingType](filteredOffersByCity);
@@ -22,7 +24,8 @@ export default function MainPage(): JSX.Element {
           <CitiesComponent />
         </div>
         <div className="cities">
-          <OffersListComponent offers={sortedOffers} selectedCity={selectedCity} />
+          {!fecthingOffersStatus && <LoadingComponent />}
+          {fecthingOffersStatus && <OffersListComponent offers={sortedOffers} selectedCity={selectedCity} />}
         </div>
       </main>
     </div>

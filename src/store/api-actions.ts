@@ -1,14 +1,21 @@
+import OfferType from '../types/offer-type';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import OfferType from '../types/offer-type';
-import { APIRoute, AuthorizationStatus } from '../const';
-import { offersSlice } from './slices/offers-slice';
-import { authSlice } from './slices/auth-slice';
+import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import {
+  loadOffers,
+  setFavoriteOffers,
+  setFullOffer,
+  setNearPlaces,
+} from './slices/offers-slice';
+import { requireAuthorization, setUserData } from './slices/auth-slice';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { removeToken, setToken } from '../services/token';
-import { loadingSlice } from './slices/loading-slice';
+import { setOffersFetchingStatus } from './slices/loading-slice';
+import { setError } from './slices/error-slice';
+import FullOfferType from '../types/full-offer';
 
 type ThunkExtraType = {
   dipatch: AppDispatch;
@@ -22,8 +29,39 @@ export const fetchOffersAction = createAsyncThunk<
   ThunkExtraType
 >('fetchOffers', async (_arg, { dispatch, extra: api }) => {
   const { data } = await api.get<OfferType[]>(APIRoute.Offers);
-  dispatch(loadingSlice.actions.setOffersLoadingStatus(false));
-  dispatch(offersSlice.actions.loadOffers(data));
+  dispatch(loadOffers(data));
+  dispatch(setOffersFetchingStatus(true));
+});
+
+export const fetchOfferAction = createAsyncThunk<
+  void,
+  OfferType['id'],
+  ThunkExtraType
+>('fetchOffer', async (offerId, { dispatch, extra: api }) => {
+  const { data } = await api.get<FullOfferType>(
+    `${APIRoute.Offers}/${offerId}`
+  );
+  dispatch(setFullOffer(data));
+});
+
+export const fetchFavoriteOffersAction = createAsyncThunk<
+  void,
+  undefined,
+  ThunkExtraType
+>('fetchFavorite', async (_arg, { dispatch, extra: api }) => {
+  const { data } = await api.get<OfferType[]>(APIRoute.Favorite);
+  dispatch(setFavoriteOffers(data));
+});
+
+export const fetchNearPlaces = createAsyncThunk<
+  void,
+  OfferType['id'],
+  ThunkExtraType
+>('fetchOffer', async (offerId, { dispatch, extra: api }) => {
+  const { data } = await api.get<OfferType[]>(
+    `${APIRoute.Offers}/${offerId}/nearby`
+  );
+  dispatch(setNearPlaces(data));
 });
 
 export const checkAuthAction = createAsyncThunk<
@@ -32,12 +70,11 @@ export const checkAuthAction = createAsyncThunk<
   ThunkExtraType
 >('checkAuth', async (_arg, { dispatch, extra: api }) => {
   try {
-    await api.get(APIRoute.Login);
-    dispatch(authSlice.actions.requireAuthorization(AuthorizationStatus.Auth));
+    const { data } = await api.get<UserData>(APIRoute.Login);
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(setUserData(data));
   } catch {
-    dispatch(
-      authSlice.actions.requireAuthorization(AuthorizationStatus.NoAuth)
-    );
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 });
 
@@ -48,7 +85,7 @@ export const loginAction = createAsyncThunk<void, AuthData, ThunkExtraType>(
       data: { token },
     } = await api.post<UserData>(APIRoute.Login, { email, password });
     setToken(token);
-    dispatch(authSlice.actions.requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
   }
 );
 
@@ -57,8 +94,14 @@ export const logoutAction = createAsyncThunk<void, undefined, ThunkExtraType>(
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     removeToken();
-    dispatch(
-      authSlice.actions.requireAuthorization(AuthorizationStatus.NoAuth)
-    );
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 );
+
+export const clearErrorAction = createAsyncThunk<
+  void,
+  undefined,
+  ThunkExtraType
+>('clearError', (_arg, { dispatch }) => {
+  setTimeout(() => dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
+});

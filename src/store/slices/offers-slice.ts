@@ -2,12 +2,16 @@ import { DEFAULT_CITY } from '../../const';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SortType } from '../../const';
 import OfferType from '../../types/offer-type';
+import FullOfferType from '../../types/full-offer';
 
 type InitialStateType = {
   city: string;
   offers: OfferType[] | [];
   sortingType: string;
   activeCard: string | null;
+  certainOffer: FullOfferType | null;
+  nearPlaces: OfferType[] | null;
+  favoriteOffers: OfferType[];
 };
 
 const initialState: InitialStateType = {
@@ -15,6 +19,9 @@ const initialState: InitialStateType = {
   offers: [] as OfferType[],
   sortingType: SortType.POPULAR,
   activeCard: null,
+  certainOffer: null,
+  nearPlaces: null,
+  favoriteOffers: [],
 };
 
 export const offersSlice = createSlice({
@@ -33,8 +40,29 @@ export const offersSlice = createSlice({
     getActiveCard(state, action: PayloadAction<string | null>) {
       state.activeCard = action.payload;
     },
+    setFullOffer(state, action: PayloadAction<FullOfferType>) {
+      state.certainOffer = action.payload;
+    },
+    setNearPlaces(state, action: PayloadAction<OfferType[]>) {
+      state.nearPlaces = action.payload;
+    },
+    dropCertainOffer(state) {
+      state.certainOffer = null;
+      state.nearPlaces = null;
+    },
+    setFavoriteOffers(state, action: PayloadAction<OfferType[]>) {
+      state.favoriteOffers = action.payload;
+    },
   },
 });
 
-export const { changeCity, changeSortingType, getActiveCard, loadOffers } =
-  offersSlice.actions;
+export const {
+  changeCity,
+  changeSortingType,
+  getActiveCard,
+  loadOffers,
+  setFullOffer,
+  setNearPlaces,
+  dropCertainOffer,
+  setFavoriteOffers,
+} = offersSlice.actions;
