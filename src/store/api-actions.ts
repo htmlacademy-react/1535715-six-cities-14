@@ -4,7 +4,9 @@ import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import {
+  addNewComment,
   loadOffers,
+  setCertainOfferComments,
   setFavoriteOffers,
   setFullOffer,
   setNearPlaces,
@@ -13,9 +15,14 @@ import { requireAuthorization, setUserData } from './slices/auth-slice';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { removeToken, setToken } from '../services/token';
-import { setOffersFetchingStatus } from './slices/loading-slice';
+import {
+  setOfferFetchingStatus,
+  setOffersFetchingStatus,
+} from './slices/loading-slice';
 import { setError } from './slices/error-slice';
 import FullOfferType from '../types/full-offer';
+import ReviewType from '../types/review';
+import CommentType from '../types/comment';
 
 type ThunkExtraType = {
   dipatch: AppDispatch;
@@ -42,6 +49,18 @@ export const fetchOfferAction = createAsyncThunk<
     `${APIRoute.Offers}/${offerId}`
   );
   dispatch(setFullOffer(data));
+  dispatch(setOfferFetchingStatus(true));
+});
+
+export const fetchOfferReviewsAction = createAsyncThunk<
+  void,
+  OfferType['id'],
+  ThunkExtraType
+>('fetchOfferReviews', async (offerId, { dispatch, extra: api }) => {
+  const { data } = await api.get<ReviewType[]>(
+    `${APIRoute.Comments}/${offerId}`
+  );
+  dispatch(setCertainOfferComments(data));
 });
 
 export const fetchFavoriteOffersAction = createAsyncThunk<
@@ -63,6 +82,21 @@ export const fetchNearPlaces = createAsyncThunk<
   );
   dispatch(setNearPlaces(data));
 });
+
+export const fetchCommentAction = createAsyncThunk<
+  void,
+  CommentType,
+  ThunkExtraType
+>(
+  'fetchComment',
+  async ({ offerId, comment, rating }, { dispatch, extra: api }) => {
+    const { data } = await api.post<ReviewType>(
+      `${APIRoute.Comments}/${offerId}`,
+      { comment, rating }
+    );
+    dispatch(addNewComment(data));
+  }
+);
 
 export const checkAuthAction = createAsyncThunk<
   void,

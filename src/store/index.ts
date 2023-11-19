@@ -5,7 +5,7 @@ import { loadingSlice } from './slices/loading-slice';
 import { authSlice } from './slices/auth-slice';
 import { errorSlice } from './slices/error-slice';
 
-const reducer = combineReducers({
+export const reducer = combineReducers({
   [offersSlice.name]: offersSlice.reducer,
   [loadingSlice.name]: loadingSlice.reducer,
   [authSlice.name]: authSlice.reducer,

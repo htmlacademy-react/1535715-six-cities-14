@@ -5,10 +5,11 @@ import OfferType from '../types/offer-type';
 import leaflet from 'leaflet';
 import useMap from '../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
+import FullOfferType from '../types/full-offer';
 
 type MapProps = {
   city: City;
-  points: OfferType[];
+  points: (OfferType | FullOfferType)[];
   selectedPoint: string | null;
   page: string;
 }

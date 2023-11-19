@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   offersFetchingStatus: false,
+  offerFetchingStatus: false,
 };
 
 export const loadingSlice = createSlice({
@@ -11,7 +12,11 @@ export const loadingSlice = createSlice({
     setOffersFetchingStatus(state, action: PayloadAction<boolean>) {
       state.offersFetchingStatus = action.payload;
     },
+    setOfferFetchingStatus(state, action: PayloadAction<boolean>) {
+      state.offerFetchingStatus = action.payload;
+    },
   },
 });
 
-export const { setOffersFetchingStatus } = loadingSlice.actions;
+export const { setOffersFetchingStatus, setOfferFetchingStatus } =
+  loadingSlice.actions;

@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SortType } from '../../const';
 import OfferType from '../../types/offer-type';
 import FullOfferType from '../../types/full-offer';
+import ReviewType from '../../types/review';
 
 type InitialStateType = {
   city: string;
@@ -10,8 +11,9 @@ type InitialStateType = {
   sortingType: string;
   activeCard: string | null;
   certainOffer: FullOfferType | null;
-  nearPlaces: OfferType[] | null;
+  nearPlaces: OfferType[];
   favoriteOffers: OfferType[];
+  certainOfferReviews: ReviewType[];
 };
 
 const initialState: InitialStateType = {
@@ -20,8 +22,9 @@ const initialState: InitialStateType = {
   sortingType: SortType.POPULAR,
   activeCard: null,
   certainOffer: null,
-  nearPlaces: null,
+  nearPlaces: [],
   favoriteOffers: [],
+  certainOfferReviews: [],
 };
 
 export const offersSlice = createSlice({
@@ -48,10 +51,17 @@ export const offersSlice = createSlice({
     },
     dropCertainOffer(state) {
       state.certainOffer = null;
-      state.nearPlaces = null;
+      state.nearPlaces = [];
+      state.certainOfferReviews = [];
     },
     setFavoriteOffers(state, action: PayloadAction<OfferType[]>) {
       state.favoriteOffers = action.payload;
+    },
+    setCertainOfferComments(state, action: PayloadAction<ReviewType[]>) {
+      state.certainOfferReviews = action.payload;
+    },
+    addNewComment(state, action: PayloadAction<ReviewType>) {
+      state.certainOfferReviews.push(action.payload);
     },
   },
 });
@@ -65,4 +75,6 @@ export const {
   setNearPlaces,
   dropCertainOffer,
   setFavoriteOffers,
+  setCertainOfferComments,
+  addNewComment,
 } = offersSlice.actions;
