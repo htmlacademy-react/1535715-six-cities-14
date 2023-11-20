@@ -2,7 +2,6 @@ import HeaderComponent from '../components/header';
 import ReviewFormComponent from '../components/review-form';
 import ReviewListComponent from '../components/review-list';
 import MapComponent from '../components/map';
-import classnames from 'classnames';
 import { calculateStarRating } from '../util';
 import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, MAX_NEARPLACES_COUNT, MAX_OFFER_IMAGES, MapPage } from '../const';
@@ -13,10 +12,11 @@ import { fetchNearPlaces, fetchOfferAction, fetchOfferReviewsAction } from '../s
 import LoadingComponent from '../components/loading';
 import { dropCertainOffer } from '../store/slices/offers-slice';
 import dayjs from 'dayjs';
+import FavoriteButtonComponent from '../components/favorite-button';
 
 export default function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const { offerId } = useParams();
+  const offerId = String(useParams().offerId);
   const selectedOffer = useAppSelector((state) => state.offers.certainOffer);
   const offerReviews = useAppSelector((state) => state.offers.certainOfferReviews);
   const nearbyOffers = useAppSelector((state) => state.offers.nearPlaces)
@@ -46,9 +46,9 @@ export default function OfferPage(): JSX.Element {
     };
   }, [offerId, dispatch]);
 
-  if (!selectedOffer && !isOfferLoaded) {
-    return <Navigate to={AppRoute.Error} />;
-  }
+  // if (!selectedOffer && !isOfferLoaded) {
+  //   return <Navigate to={AppRoute.Error} />;
+  // }
 
   return (
     <div className="page">
@@ -78,19 +78,7 @@ export default function OfferPage(): JSX.Element {
                   <h1 className="offer__name">
                     {selectedOffer.title}
                   </h1>
-                  <button
-                    className={classnames(
-                      'offer__bookmark-button',
-                      'button',
-                      { 'offer__bookmark-button--active': selectedOffer.isFavorite }
-                    )}
-                    type="button"
-                  >
-                    <svg className="offer__bookmark-icon" width="31" height="33">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <FavoriteButtonComponent isFavorite={selectedOffer.isFavorite} page='offer' width={31} height={33} offerId={offerId} />
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">

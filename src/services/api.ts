@@ -13,9 +13,9 @@ const REQUEST_TIMEOUT = 5000;
 
 const statusCodes = [
   StatusCodes.BAD_REQUEST,
-  StatusCodes.UNAUTHORIZED,
   StatusCodes.NOT_FOUND,
   StatusCodes.BAD_GATEWAY,
+  StatusCodes.CONFLICT,
 ];
 
 export const creatAPI = (): AxiosInstance => {

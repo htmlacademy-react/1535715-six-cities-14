@@ -2,7 +2,7 @@ import OfferType from './offer-type';
 
 type FavoriteOfferType = {
   city: string;
-  favoriteOffers: OfferType[];
-}[]
+  cityFavoriteOffers: OfferType[];
+}[];
 
 export default FavoriteOfferType;

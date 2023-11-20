@@ -7,7 +7,7 @@ import ReviewType from '../../types/review';
 
 type InitialStateType = {
   city: string;
-  offers: OfferType[] | [];
+  offers: OfferType[];
   sortingType: string;
   activeCard: string | null;
   certainOffer: FullOfferType | null;
@@ -18,7 +18,7 @@ type InitialStateType = {
 
 const initialState: InitialStateType = {
   city: DEFAULT_CITY,
-  offers: [] as OfferType[],
+  offers: [],
   sortingType: SortType.POPULAR,
   activeCard: null,
   certainOffer: null,
@@ -57,6 +57,27 @@ export const offersSlice = createSlice({
     setFavoriteOffers(state, action: PayloadAction<OfferType[]>) {
       state.favoriteOffers = action.payload;
     },
+    updateOfferFavoriteStatus(state, action: PayloadAction<OfferType>) {
+      const updatedOffer = state.offers.find(
+        (offer) => offer.id === action.payload.id
+      );
+
+      if (updatedOffer) {
+        updatedOffer.isFavorite = !updatedOffer.isFavorite;
+      }
+
+      switch (action.payload.isFavorite) {
+        case true: {
+          state.favoriteOffers.push(action.payload);
+          break;
+        }
+        case false: {
+          state.favoriteOffers = state.favoriteOffers.filter(
+            ({ id }) => id !== action.payload.id
+          );
+        }
+      }
+    },
     setCertainOfferComments(state, action: PayloadAction<ReviewType[]>) {
       state.certainOfferReviews = action.payload;
     },
@@ -77,4 +98,5 @@ export const {
   setFavoriteOffers,
   setCertainOfferComments,
   addNewComment,
+  updateOfferFavoriteStatus,
 } = offersSlice.actions;
