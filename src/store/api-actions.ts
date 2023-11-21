@@ -2,9 +2,15 @@ import OfferType from '../types/offer-type';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import {
+  APIRoute,
+  AuthorizationStatus,
+  RequestStatus,
+  TIMEOUT_SHOW_ERROR,
+} from '../const';
 import {
   addNewComment,
+  dropOffers,
   loadOffers,
   setCertainOfferComments,
   setFavoriteOffers,
@@ -38,9 +44,9 @@ export const fetchOffersAction = createAsyncThunk<
   ThunkExtraType
 >('fetchOffers', async (_arg, { dispatch, extra: api }) => {
   const { data } = await api.get<OfferType[]>(APIRoute.Offers);
-
+  dispatch(setOffersFetchingStatus(RequestStatus.Pending));
   dispatch(loadOffers(data));
-  dispatch(setOffersFetchingStatus(true));
+  dispatch(setOffersFetchingStatus(RequestStatus.Success));
 });
 
 export const fetchOfferAction = createAsyncThunk<
@@ -48,12 +54,16 @@ export const fetchOfferAction = createAsyncThunk<
   OfferType['id'],
   ThunkExtraType
 >('fetchOffer', async (offerId, { dispatch, extra: api }) => {
-  const { data } = await api.get<FullOfferType>(
-    `${APIRoute.Offers}/${offerId}`
-  );
-
-  dispatch(setFullOffer(data));
-  dispatch(setOfferFetchingStatus(true));
+  try {
+    const { data } = await api.get<FullOfferType>(
+      `${APIRoute.Offers}/${offerId}`
+    );
+    dispatch(setOfferFetchingStatus(RequestStatus.Pending));
+    dispatch(setFullOffer(data));
+    dispatch(setOfferFetchingStatus(RequestStatus.Success));
+  } catch {
+    dispatch(setOfferFetchingStatus(RequestStatus.Error));
+  }
 });
 
 export const fetchOfferReviewsAction = createAsyncThunk<
@@ -147,6 +157,8 @@ export const loginAction = createAsyncThunk<void, AuthData, ThunkExtraType>(
     setToken(data.token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(setUserData(data));
+    dispatch(dropOffers());
+    dispatch(fetchOffersAction());
   }
 );
 

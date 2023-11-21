@@ -3,8 +3,8 @@ import ReviewFormComponent from '../components/review-form';
 import ReviewListComponent from '../components/review-list';
 import MapComponent from '../components/map';
 import { calculateStarRating } from '../util';
-import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, MAX_NEARPLACES_COUNT, MAX_OFFER_IMAGES, MapPage } from '../const';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus, MAX_NEARPLACES_COUNT, MAX_OFFER_IMAGES, MapPage, RequestStatus } from '../const';
 import NearbyListComponent from '../components/nearby-list';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { useEffect } from 'react';
@@ -13,9 +13,11 @@ import LoadingComponent from '../components/loading';
 import { dropCertainOffer } from '../store/slices/offers-slice';
 import dayjs from 'dayjs';
 import FavoriteButtonComponent from '../components/favorite-button';
+import { setOfferFetchingStatus } from '../store/slices/loading-slice';
 
 export default function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const offerId = String(useParams().offerId);
   const selectedOffer = useAppSelector((state) => state.offers.certainOffer);
   const offerReviews = useAppSelector((state) => state.offers.certainOfferReviews);
@@ -23,7 +25,7 @@ export default function OfferPage(): JSX.Element {
     ?.slice(0, MAX_NEARPLACES_COUNT);
   const isLoggedIn = useAppSelector((state) => state.auth.authorizationStatus)
     === AuthorizationStatus.Auth;
-  const isOfferLoaded = useAppSelector((state) => state.loading.offerFetchingStatus);
+  const fetchingOfferStatus = useAppSelector((state) => state.loading.offerFetchingStatus);
 
   const sortedOfferReviews = offerReviews?.slice()?.sort((a, b) => {
     const dateA = dayjs(a.date);
@@ -43,18 +45,19 @@ export default function OfferPage(): JSX.Element {
 
     return () => {
       dispatch(dropCertainOffer());
+      dispatch(setOfferFetchingStatus(RequestStatus.Idle));
     };
   }, [offerId, dispatch]);
 
-  // if (!selectedOffer && !isOfferLoaded) {
-  //   return <Navigate to={AppRoute.Error} />;
-  // }
+  if (fetchingOfferStatus === RequestStatus.Error) {
+    navigate(AppRoute.Error);
+  }
 
   return (
     <div className="page">
       <HeaderComponent />
 
-      {(!selectedOffer || !nearbyOffers) && <LoadingComponent />}
+      {(!selectedOffer || !nearbyOffers || !offerReviews) && <LoadingComponent />}
 
       {(selectedOffer && nearbyOffers) &&
         <main className="page__main page__main--offer">
@@ -133,7 +136,7 @@ export default function OfferPage(): JSX.Element {
                 </div>
                 <section className="offer__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerReviews?.length}</span></h2>
-                  {(sortedOfferReviews?.length && sortedOfferReviews) && <ReviewListComponent reviews={sortedOfferReviews} />}
+                  {(sortedOfferReviews?.length > 0 && sortedOfferReviews) && <ReviewListComponent reviews={sortedOfferReviews} />}
                   {isLoggedIn && <ReviewFormComponent />}
                 </section>
               </div>

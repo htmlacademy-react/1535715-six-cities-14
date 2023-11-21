@@ -4,6 +4,7 @@ import LoadingComponent from '../components/loading';
 import OffersListComponent from '../components/offers-list';
 import { useAppSelector } from '../hooks';
 import { sortingCards } from '../util';
+import { RequestStatus } from '../const';
 
 export default function MainPage(): JSX.Element {
   const selectedCity = useAppSelector((state) => state.offers.city);
@@ -24,8 +25,8 @@ export default function MainPage(): JSX.Element {
           <CitiesComponent />
         </div>
         <div className="cities">
-          {!fecthingOffersStatus && <LoadingComponent />}
-          {fecthingOffersStatus && <OffersListComponent offers={sortedOffers} selectedCity={selectedCity} />}
+          {fecthingOffersStatus === RequestStatus.Pending && <LoadingComponent />}
+          {fecthingOffersStatus === RequestStatus.Success && <OffersListComponent offers={sortedOffers} selectedCity={selectedCity} />}
         </div>
       </main>
     </div>

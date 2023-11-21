@@ -31,6 +31,7 @@ export enum AppRoute {
 }
 
 export enum RequestStatus {
+  Idle = 'Idle',
   Pending = 'Pending',
   Success = 'Success',
   Error = 'Error',

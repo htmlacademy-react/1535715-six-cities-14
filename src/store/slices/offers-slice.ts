@@ -40,6 +40,9 @@ export const offersSlice = createSlice({
     loadOffers(state, action: PayloadAction<OfferType[]>) {
       state.offers = action.payload;
     },
+    dropOffers(state) {
+      state.offers = [];
+    },
     getActiveCard(state, action: PayloadAction<string | null>) {
       state.activeCard = action.payload;
     },
@@ -99,4 +102,5 @@ export const {
   setCertainOfferComments,
   addNewComment,
   updateOfferFavoriteStatus,
+  dropOffers,
 } = offersSlice.actions;
