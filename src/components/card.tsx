@@ -1,10 +1,10 @@
 import OfferType from '../types/offer-type';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../const';
 import { calculateStarRating } from '../util';
 import { useAppDispatch } from '../hooks';
 import { getActiveCard } from '../store/slices/offers-slice';
+import FavoriteButtonComponent from './favorite-button';
 
 type CardProps = {
   offer: OfferType;
@@ -12,7 +12,6 @@ type CardProps = {
 }
 
 export default function CardComponent({ offer, page }: CardProps): JSX.Element {
-  const [favoriteStatus, setFavoriteStatus] = useState(offer.isFavorite);
   const dispatch = useAppDispatch();
 
   function handleMouseEnter() {
@@ -46,16 +45,7 @@ export default function CardComponent({ offer, page }: CardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            onClick={() => setFavoriteStatus((prevStatus) => !prevStatus)}
-            className={`place-card__bookmark-button button ${favoriteStatus ? 'place-card__bookmark-button--active' : ''}`}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavoriteButtonComponent isFavorite={offer.isFavorite} offerId={offer.id} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

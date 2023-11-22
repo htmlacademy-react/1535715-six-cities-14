@@ -5,24 +5,25 @@ import OfferType from '../types/offer-type';
 import leaflet from 'leaflet';
 import useMap from '../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
+import FullOfferType from '../types/full-offer';
 
 type MapProps = {
   city: City;
-  points: OfferType[];
+  points: (OfferType | FullOfferType)[];
   selectedPoint: string | null;
   page: string;
 }
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39]
 });
 
 const currentCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39]
 });
 
 export default function MapComponent({ city, points, page, selectedPoint }: MapProps): JSX.Element {

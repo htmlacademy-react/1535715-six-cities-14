@@ -1,17 +1,28 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { RequestStatus } from '../../const';
 
-const initialState = {
-  offersFetchingStatus: false,
+type InitialStateType = {
+  offersFetchingStatus: RequestStatus;
+  offerFetchingStatus: RequestStatus;
+};
+
+const initialState: InitialStateType = {
+  offersFetchingStatus: RequestStatus.Idle,
+  offerFetchingStatus: RequestStatus.Idle,
 };
 
 export const loadingSlice = createSlice({
   name: 'loading',
   initialState,
   reducers: {
-    setOffersFetchingStatus(state, action: PayloadAction<boolean>) {
+    setOffersFetchingStatus(state, action: PayloadAction<RequestStatus>) {
       state.offersFetchingStatus = action.payload;
+    },
+    setOfferFetchingStatus(state, action: PayloadAction<RequestStatus>) {
+      state.offerFetchingStatus = action.payload;
     },
   },
 });
 
-export const { setOffersFetchingStatus } = loadingSlice.actions;
+export const { setOffersFetchingStatus, setOfferFetchingStatus } =
+  loadingSlice.actions;

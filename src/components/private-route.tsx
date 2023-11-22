@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { AuthorizationStatus } from '../const';
+import LoadingComponent from './loading';
 
 type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatus;
@@ -8,6 +9,10 @@ type PrivateRouteProps = {
 }
 
 export default function PrivateRouteComponent({ authorizationStatus, children, redirectionTo }: PrivateRouteProps): JSX.Element {
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
+    return <LoadingComponent />;
+  }
+
   return (
     authorizationStatus === AuthorizationStatus.Auth
       ? children

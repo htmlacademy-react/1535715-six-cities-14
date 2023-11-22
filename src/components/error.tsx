@@ -6,26 +6,21 @@ export default function ErrorComponent(): JSX.Element | null {
   return error ?
     <div
       style={{
-        position: 'absolute',
-        left: '0',
-        right: '0',
-        top: '0',
-        bottom: '0',
+        position: 'fixed',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        top: '10px',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'start',
-        zIndex: '999'
-      }}
-    >
-      <p style={{
+        alignItems: 'center',
+        zIndex: '999',
         background: '#ff513d',
         padding: '10px',
         borderRadius: '5px',
-        color: '#fff'
+        color: '#fff',
       }}
-      >
-        {error}
-      </p>
+    >
+      <p style={{ margin: '0' }}>{error}</p>
     </div >
     : null;
 }

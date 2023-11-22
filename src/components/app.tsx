@@ -5,20 +5,19 @@ import OfferPage from '../pages/offer';
 import Error from '../pages/error';
 import PrivateRoute from './private-route';
 import RedirectionRoute from './redirect-route';
-import ReviewType from '../types/review';
 import { AppRoute } from '../const';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useAppSelector } from '../hooks';
+import ScrollTopComponent from './scroll-to-top';
+import { HistoryRouter } from './history-route';
+import { browserHistory } from '../browser-history';
 
-type AppProps = {
-  reviews: ReviewType[];
-}
-
-export default function App({ reviews }: AppProps): JSX.Element {
+export default function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.auth.authorizationStatus);
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
+      <ScrollTopComponent />
       <Routes>
         <Route path={AppRoute.Root} element={<MainPage />} />
         <Route
@@ -37,9 +36,9 @@ export default function App({ reviews }: AppProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.OfferId} element={<OfferPage reviews={reviews} />} />
+        <Route path={AppRoute.OfferId} element={<OfferPage />} />
         <Route path='*' element={<Error />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }

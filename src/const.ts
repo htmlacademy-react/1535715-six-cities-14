@@ -9,6 +9,7 @@ export const TIMEOUT_SHOW_ERROR = 2000;
 export const CARDS_COUNT: number = 5;
 export const MAX_OFFER_IMAGES = 6;
 export const MAX_REVIEWS_COUNT = 10;
+export const MAX_NEARPLACES_COUNT = 3;
 export const COMMENT_MIN_LENGTH = 50;
 export const COMMENT_MAX_LENGTH = 300;
 export const RANDOM_MOCK_IMAGE = 'https://loremflickr.com/260/200';
@@ -30,6 +31,7 @@ export enum AppRoute {
 }
 
 export enum RequestStatus {
+  Idle = 'Idle',
   Pending = 'Pending',
   Success = 'Success',
   Error = 'Error',

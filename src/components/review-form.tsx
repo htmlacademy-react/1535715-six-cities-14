@@ -1,5 +1,9 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import CommentType from '../types/comment';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { COMMENT_MAX_LENGTH, COMMENT_MIN_LENGTH } from '../const';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../hooks';
+import { fetchCommentAction } from '../store/api-actions';
 
 const RatingMap = {
   '5': 'perfect',
@@ -10,6 +14,8 @@ const RatingMap = {
 };
 
 export default function ReviewFormComponent(): JSX.Element {
+  const offerId = String(useParams().offerId);
+  const dispatch = useAppDispatch();
   const [commentValue, setCommentValue] = useState('');
   const [ratingValue, setRatingValue] = useState('');
   const isValid =
@@ -25,8 +31,27 @@ export default function ReviewFormComponent(): JSX.Element {
     setRatingValue(evt.target.value);
   }
 
+  function resetForm() {
+    setCommentValue('');
+    setRatingValue('');
+  }
+
+  function handleFormSubmit(evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+
+    resetForm();
+
+    const review: CommentType = {
+      offerId,
+      rating: Number(ratingValue),
+      comment: commentValue
+    };
+
+    dispatch(fetchCommentAction(review));
+  }
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div onChange={handleRatingChange} className="reviews__rating-form form__rating">
         {Object.entries(RatingMap)
@@ -38,7 +63,7 @@ export default function ReviewFormComponent(): JSX.Element {
                 name="rating"
                 value={score}
                 id={`${score}-stars`}
-                defaultChecked={score === ratingValue}
+                checked={score === ratingValue}
                 type="radio"
               />
               <label

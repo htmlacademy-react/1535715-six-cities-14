@@ -11,7 +11,12 @@ type ErrorMessage = {
 const SERVER_URL = 'https://14.design.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
-const statusCodes = [StatusCodes.BAD_REQUEST];
+const statusCodes = [
+  StatusCodes.BAD_REQUEST,
+  StatusCodes.NOT_FOUND,
+  StatusCodes.BAD_GATEWAY,
+  StatusCodes.CONFLICT,
+];
 
 export const creatAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -35,6 +40,8 @@ export const creatAPI = (): AxiosInstance => {
       if (error.response && statusCodes.includes(error.response.status)) {
         proccessErrorHandle(error.response.data.message);
       }
+
+      throw error;
     }
   );
 
