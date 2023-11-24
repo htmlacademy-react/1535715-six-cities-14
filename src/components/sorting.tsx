@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, memo } from 'react';
 import { SortType } from '../const';
 import { useAppDispatch } from '../hooks';
 import { changeSortingType } from '../store/slices/offers-slice';
 
-export default function SortingComponent(): JSX.Element {
+function SortingComponent(): JSX.Element {
   const [isOpened, setIsOpened] = useState(false);
   const [activeSortType, setActiveSortType] = useState(SortType.POPULAR);
   const dispatch = useAppDispatch();
@@ -57,3 +57,6 @@ export default function SortingComponent(): JSX.Element {
     </form>
   );
 }
+
+const SortingComponentMemo = memo(SortingComponent);
+export default SortingComponentMemo;

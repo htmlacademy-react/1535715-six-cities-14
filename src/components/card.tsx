@@ -5,13 +5,14 @@ import { calculateStarRating } from '../util';
 import { useAppDispatch } from '../hooks';
 import { getActiveCard } from '../store/slices/offers-slice';
 import FavoriteButtonComponent from './favorite-button';
+import { memo } from 'react';
 
 type CardProps = {
   offer: OfferType;
   page: string;
 }
 
-export default function CardComponent({ offer, page }: CardProps): JSX.Element {
+function CardComponent({ offer, page }: CardProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   function handleMouseEnter() {
@@ -61,3 +62,6 @@ export default function CardComponent({ offer, page }: CardProps): JSX.Element {
     </article>
   );
 }
+
+const OfferCardMemo = memo(CardComponent);
+export default OfferCardMemo;
