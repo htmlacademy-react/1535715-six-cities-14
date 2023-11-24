@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { changeCity } from '../store/slices/offers-slice';
+import { memo } from 'react';
 
-export default function CitiesComponent(): JSX.Element {
+function CitiesComponent(): JSX.Element {
   const dispatch = useAppDispatch();
   const stateCity = useAppSelector((state) => state.offers.city);
 
@@ -31,3 +32,6 @@ export default function CitiesComponent(): JSX.Element {
     </section>
   );
 }
+
+const CitiesComponentMemo = memo(CitiesComponent);
+export default CitiesComponentMemo;
