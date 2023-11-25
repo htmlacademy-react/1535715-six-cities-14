@@ -23,6 +23,7 @@ import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { removeToken, setToken } from '../services/token';
 import {
+  setFavoriteFetchingStatus,
   setOfferFetchingStatus,
   setOffersFetchingStatus,
 } from './slices/loading-slice';
@@ -86,6 +87,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   const { data } = await api.get<OfferType[]>(APIRoute.Favorite);
 
   dispatch(setFavoriteOffers(data));
+  dispatch(setFavoriteFetchingStatus(RequestStatus.Success));
 });
 
 export const changeFavoriteStatus = createAsyncThunk<
