@@ -25,7 +25,7 @@ export default function MainPage(): JSX.Element {
           <CitiesComponent />
         </div>
         <div className="cities">
-          {fecthingOffersStatus === RequestStatus.Pending && <LoadingComponent />}
+          {fecthingOffersStatus !== RequestStatus.Success && <LoadingComponent />}
           {fecthingOffersStatus === RequestStatus.Success && <OffersListComponent offers={sortedOffers} selectedCity={selectedCity} />}
         </div>
       </main>
