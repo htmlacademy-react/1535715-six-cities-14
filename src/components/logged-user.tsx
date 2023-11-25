@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../const';
+import { AppRoute, RequestStatus } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { useEffect } from 'react';
 import { fetchFavoriteOffersAction, logoutAction } from '../store/api-actions';
@@ -8,10 +8,14 @@ export default function LoggedUserComponent() {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.auth.userData);
   const favoriteOffersCount = useAppSelector((state) => state.offers.favoriteOffers.length);
+  const isIdle = useAppSelector((state) => state.loading.favoriteFecthingStatus)
+    === RequestStatus.Idle;
 
   useEffect(() => {
-    dispatch(fetchFavoriteOffersAction());
-  }, [dispatch]);
+    if (isIdle) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [dispatch, isIdle]);
 
   function signOutClickHandler() {
     dispatch(logoutAction());
