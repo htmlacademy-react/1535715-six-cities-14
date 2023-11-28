@@ -1,4 +1,4 @@
-import { SortType } from './const';
+import { SortType, Cities } from './const';
 import OfferType from './types/offer-type';
 
 type sortingObject = {
@@ -7,6 +7,11 @@ type sortingObject = {
 
 export function calculateStarRating(rating: number) {
   return Math.round(rating) * 20;
+}
+
+export function getRandomCity() {
+  const randomIndex = Math.floor(Math.random() * Cities.length);
+  return Cities[randomIndex];
 }
 
 export const sortingCards: sortingObject = {

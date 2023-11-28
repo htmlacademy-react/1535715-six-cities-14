@@ -6,7 +6,7 @@ type ReviewProps = {
   review: ReviewType;
 }
 
-export default function ReviewComponent({review}: ReviewProps): JSX.Element {
+export default function ReviewComponent({ review }: ReviewProps): JSX.Element {
   const formatedDate = dayjs(review.date).format('MMMM YYYY');
   const attributeFormatedDate = dayjs(review.date).format('YYYY-M-D');
 
@@ -23,7 +23,7 @@ export default function ReviewComponent({review}: ReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: calculateStarRating(review.rating) }}></span>
+            <span style={{ width: `${calculateStarRating(review.rating)}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

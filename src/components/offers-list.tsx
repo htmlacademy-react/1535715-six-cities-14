@@ -18,7 +18,7 @@ export default function OffersListComponent({ offers, selectedCity }: OffersList
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offers.length} places to stay in {selectedCity}</b>
+        <b className="places__found">{`${offers.length} place${offers.length === 1 ? '' : 's'} to stay in ${selectedCity}`}</b>
         <SortingComponent />
         <div className="cities__places-list places__list tabs__content">
           {offers.map((offer) => (

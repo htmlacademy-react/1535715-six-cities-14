@@ -124,9 +124,10 @@ export default function OfferPage(): JSX.Element {
                     <span className="offer__user-name">
                       {selectedOffer.host.name}
                     </span>
-                    <span className="offer__user-status">
-                      {selectedOffer.host.isPro && 'Pro'}
-                    </span>
+                    {selectedOffer.host.isPro && (
+                      <span className="offer__user-status">
+                        Pro
+                      </span>)}
                   </div>
                   <div className="offer__description">
                     <p className="offer__text">

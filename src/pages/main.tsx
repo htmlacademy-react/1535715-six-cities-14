@@ -33,8 +33,8 @@ export default function MainPage(): JSX.Element {
         </div>
         <div className="cities">
           {!isOffersLoaded && <LoadingComponent />}
-          {(isOffersLoaded && !filteredOffersByCity.length) && <EmptyOffersComponent />}
-          {isOffersLoaded && <OffersListComponent offers={sortedOffers} selectedCity={selectedCity} />}
+          {(isOffersLoaded && !filteredOffersByCity.length) && <EmptyOffersComponent city={selectedCity} />}
+          {(isOffersLoaded && !!filteredOffersByCity.length) && <OffersListComponent offers={sortedOffers} selectedCity={selectedCity} />}
         </div>
       </main>
     </div>
