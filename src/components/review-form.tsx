@@ -52,6 +52,7 @@ export default function ReviewFormComponent(): JSX.Element {
       .then(() => {
         resetForm();
       })
+      .catch(() => { })
       .finally(() => setDisableStatus(false));
   }
 
