@@ -48,21 +48,23 @@ export default function ReviewFormComponent(): JSX.Element {
       comment: commentValue
     };
 
-    dispatch(fetchCommentAction(review)).then(() => {
-      resetForm();
-      setDisableStatus(false);
-    });
+    dispatch(fetchCommentAction(review)).unwrap()
+      .then(() => {
+        resetForm();
+      })
+      .finally(() => setDisableStatus(false));
   }
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div onChange={handleRatingChange} className="reviews__rating-form form__rating">
+      <div className="reviews__rating-form form__rating">
         {Object.entries(RatingMap)
           .reverse()
           .map(([score, title]) => (
             <Fragment key={score}>
               <input
+                onChange={handleRatingChange}
                 className="form__rating-input visually-hidden"
                 name="rating"
                 value={score}
@@ -88,7 +90,7 @@ export default function ReviewFormComponent(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{COMMENT_MIN_LENGTH} characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!isValid}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isValid || isDisabled}>Submit</button>
       </div>
     </form>
   );
