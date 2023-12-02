@@ -1,11 +1,11 @@
-import CitiesComponent from '../components/cities';
-import HeaderComponent from '../components/header';
-import LoadingComponent from '../components/loading';
-import OffersListComponent from '../components/offers-list';
-import EmptyOffersComponent from '../components/empty-offers';
+import CitiesComponent from '../components/cities/cities';
+import HeaderComponent from '../components/header/header';
+import LoadingComponent from '../components/loading/loading';
+import OffersListComponent from '../components/offers-list/offers-list';
+import EmptyOffersComponent from '../components/empty-offers/empty-offers';
 import classNames from 'classnames';
 import { useAppSelector } from '../hooks';
-import { sortingCards } from '../util';
+import { sortingCards } from '../utils/util';
 import { RequestStatus } from '../const';
 
 export default function MainPage(): JSX.Element {

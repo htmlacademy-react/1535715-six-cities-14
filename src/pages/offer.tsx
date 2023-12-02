@@ -1,19 +1,19 @@
-import HeaderComponent from '../components/header';
-import ReviewFormComponent from '../components/review-form';
-import ReviewListComponent from '../components/review-list';
-import MapComponent from '../components/map';
-import { calculateStarRating } from '../util';
+import HeaderComponent from '../components/header/header';
+import ReviewFormComponent from '../components/review-form/review-form';
+import ReviewListComponent from '../components/review-list/review-list';
+import MapComponent from '../components/map/map';
+import { calculateStarRating } from '../utils/util';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, MAX_NEARPLACES_COUNT, MAX_OFFER_IMAGES, MapPage, RequestStatus } from '../const';
-import NearbyListComponent from '../components/nearby-list';
+import NearbyListComponent from '../components/nearby-list/nearby-list';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { useEffect } from 'react';
 import { fetchNearPlaces, fetchOfferAction, fetchOfferReviewsAction } from '../store/api-actions';
-import LoadingComponent from '../components/loading';
-import { dropCertainOffer } from '../store/slices/offers-slice';
+import LoadingComponent from '../components/loading/loading';
+import { dropCertainOffer } from '../store/slices/offers-slice/offers-slice';
 import dayjs from 'dayjs';
-import FavoriteButtonComponent from '../components/favorite-button';
-import { setOfferFetchingStatus } from '../store/slices/loading-slice';
+import FavoriteButtonComponent from '../components/favorite-button/favorite-button';
+import { setOfferFetchingStatus } from '../store/slices/loading-slice/loading-slice';
 
 export default function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();

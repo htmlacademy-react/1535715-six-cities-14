@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { offersSlice } from './slices/offers-slice';
-import { creatAPI } from '../services/api';
-import { loadingSlice } from './slices/loading-slice';
-import { authSlice } from './slices/auth-slice';
-import { errorSlice } from './slices/error-slice';
+import { offersSlice } from './slices/offers-slice/offers-slice';
+import { createAPI } from '../services/api';
+import { loadingSlice } from './slices/loading-slice/loading-slice';
+import { authSlice } from './slices/auth-slice/auth-slice';
+import { errorSlice } from './slices/error-slice/error-slice';
 
 export const reducer = combineReducers({
   [offersSlice.name]: offersSlice.reducer,
@@ -12,7 +12,7 @@ export const reducer = combineReducers({
   [errorSlice.name]: errorSlice.reducer,
 });
 
-export const api = creatAPI();
+const api = createAPI();
 
 export const store = configureStore({
   reducer,

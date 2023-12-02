@@ -18,7 +18,7 @@ const statusCodes = [
   StatusCodes.CONFLICT,
 ];
 
-export const creatAPI = (): AxiosInstance => {
+export const createAPI = (): AxiosInstance => {
   const api = axios.create({
     baseURL: SERVER_URL,
     timeout: REQUEST_TIMEOUT,

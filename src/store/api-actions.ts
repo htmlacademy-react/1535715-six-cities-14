@@ -17,8 +17,11 @@ import {
   setFullOffer,
   setNearPlaces,
   updateOfferFavoriteStatus,
-} from './slices/offers-slice';
-import { requireAuthorization, setUserData } from './slices/auth-slice';
+} from './slices/offers-slice/offers-slice';
+import {
+  requireAuthorization,
+  setUserData,
+} from './slices/auth-slice/auth-slice';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { removeToken, setToken } from '../services/token';
@@ -26,8 +29,8 @@ import {
   setFavoriteFetchingStatus,
   setOfferFetchingStatus,
   setOffersFetchingStatus,
-} from './slices/loading-slice';
-import { setError } from './slices/error-slice';
+} from './slices/loading-slice/loading-slice';
+import { setError } from './slices/error-slice/error-slice';
 import FullOfferType from '../types/full-offer';
 import ReviewType from '../types/review';
 import CommentType from '../types/comment';

@@ -1,11 +1,11 @@
-import HeaderComponent from '../components/header';
-import FavoriteEmptyComponent from '../components/favorite-empty';
+import HeaderComponent from '../components/header/header';
+import FavoriteEmptyComponent from '../components/favorite-empty/favorite-empty';
 import FavoriteOfferType from '../types/favorite-offer';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { calculateStarRating } from '../util';
+import { calculateStarRating } from '../utils/util';
 import { useAppSelector } from '../hooks';
-import FavoriteButtonComponent from '../components/favorite-button';
+import FavoriteButtonComponent from '../components/favorite-button/favorite-button';
 
 export default function FavouritePage(): JSX.Element {
   const favoriteOffers = useAppSelector((state) => state.offers.favoriteOffers);

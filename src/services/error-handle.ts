@@ -1,5 +1,5 @@
 import { store } from '../store';
-import { setError } from '../store/slices/error-slice';
+import { setError } from '../store/slices/error-slice/error-slice';
 import { clearErrorAction } from '../store/api-actions';
 
 export const proccessErrorHandle = (message: string) => {
