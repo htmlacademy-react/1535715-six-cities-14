@@ -6,7 +6,6 @@ import {
   getActiveCard,
   offersSlice,
 } from './offers-slice';
-import { datatype } from 'faker';
 
 describe('Offers slice testing', () => {
   const initialState = {
@@ -65,7 +64,7 @@ describe('Offers slice testing', () => {
 
   describe('Active card tests', () => {
     it('set active card', () => {
-      const activeCardId = datatype.uuid();
+      const activeCardId = crypto.randomUUID();
 
       const result = offersSlice.reducer(
         initialState,

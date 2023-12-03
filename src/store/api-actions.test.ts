@@ -17,6 +17,19 @@ import {
   fetchOffersAction,
 } from './api-actions';
 import { APIRoute } from '../const';
+import {
+  requireAuthorization,
+  setUserData,
+} from './slices/auth-slice/auth-slice';
+import {
+  setOfferFetchingStatus,
+  setOffersFetchingStatus,
+} from './slices/loading-slice/loading-slice';
+import {
+  loadOffers,
+  setCertainOfferComments,
+  setFullOffer,
+} from './slices/offers-slice/offers-slice';
 
 describe('Async actions', () => {
   const axios = createAPI();
@@ -34,7 +47,7 @@ describe('Async actions', () => {
   });
 
   describe('checkAuthAction', () => {
-    it('dispatch pending and fulfilled statuses with thunk "checkAuthAction"', async () => {
+    it('dispatch pending and fulfilled statuses when code is 200', async () => {
       mockAxiosAdapter.onGet(APIRoute.Login).reply(200);
 
       await store.dispatch(checkAuthAction());
@@ -42,11 +55,13 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         checkAuthAction.pending.type,
+        requireAuthorization.type,
+        setUserData.type,
         checkAuthAction.fulfilled.type,
       ]);
     });
 
-    it('dispatch pending and rejected statuses when code is 400', async () => {
+    it('dispatch pending and fulfilled statuses even when code is 400', async () => {
       mockAxiosAdapter.onGet(APIRoute.Login).reply(400);
 
       await store.dispatch(checkAuthAction());
@@ -54,7 +69,8 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         checkAuthAction.pending.type,
-        checkAuthAction.rejected.type,
+        requireAuthorization.type,
+        checkAuthAction.fulfilled.type,
       ]);
     });
   });
@@ -68,12 +84,15 @@ describe('Async actions', () => {
 
       const emittedActions = store.getActions();
       const extractedActionsTypes = extractActionsTypes(emittedActions);
-      const fetchOffersActionFulfilled = emittedActions.at(1) as ReturnType<
+      const fetchOffersActionFulfilled = emittedActions.at(2) as ReturnType<
         typeof fetchOffersAction.fulfilled
       >;
 
       expect(extractedActionsTypes).toEqual([
         fetchOffersAction.pending.type,
+        setOffersFetchingStatus.type,
+        loadOffers.type,
+        setOffersFetchingStatus.type,
         fetchOffersAction.fulfilled.type,
       ]);
 
@@ -105,19 +124,22 @@ describe('Async actions', () => {
 
       const emittedActions = store.getActions();
       const extractedActionsTypes = extractActionsTypes(emittedActions);
-      const fetchOfferActionFulfilled = emittedActions.at(1) as ReturnType<
+      const fetchOfferActionFulfilled = emittedActions.at(2) as ReturnType<
         typeof fetchOfferAction.fulfilled
       >;
 
       expect(extractedActionsTypes).toEqual([
         fetchOfferAction.pending.type,
+        setOfferFetchingStatus.type,
+        setFullOffer.type,
+        setOfferFetchingStatus.type,
         fetchOfferAction.fulfilled.type,
       ]);
 
       expect(fetchOfferActionFulfilled.payload).toEqual(mockOffer);
     });
 
-    it('dispatch pending and rejected statuses when server responses 404', async () => {
+    it('dispatch pending and fulfilled statuses when server responses 404', async () => {
       const mockOffer = makeFakeOffer();
       mockAxiosAdapter
         .onGet(`${APIRoute.Offers}/${mockOffer.id}`)
@@ -128,7 +150,8 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         fetchOfferAction.pending.type,
-        fetchOfferAction.rejected.type,
+        setOfferFetchingStatus.type,
+        fetchOfferAction.fulfilled.type,
       ]);
     });
   });
@@ -152,6 +175,7 @@ describe('Async actions', () => {
 
       expect(extractedActionsTypes).toEqual([
         fetchOfferReviewsAction.pending.type,
+        setCertainOfferComments.type,
         fetchOfferReviewsAction.fulfilled.type,
       ]);
 
