@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { getToken } from './token';
 import { StatusCodes } from 'http-status-codes';
-import { proccessErrorHandle } from './error-handle';
+import { toast } from 'react-toastify';
 
 type ErrorMessage = {
   errorType: string;
@@ -18,7 +18,7 @@ const statusCodes = [
   StatusCodes.CONFLICT,
 ];
 
-export const creatAPI = (): AxiosInstance => {
+export const createAPI = (): AxiosInstance => {
   const api = axios.create({
     baseURL: SERVER_URL,
     timeout: REQUEST_TIMEOUT,
@@ -38,7 +38,7 @@ export const creatAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<ErrorMessage>) => {
       if (error.response && statusCodes.includes(error.response.status)) {
-        proccessErrorHandle(error.response.data.message);
+        toast.warn(error.response.data.message);
       }
 
       throw error;
