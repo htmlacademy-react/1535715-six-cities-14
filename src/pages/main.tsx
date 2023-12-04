@@ -12,8 +12,9 @@ export default function MainPage(): JSX.Element {
   const selectedCity = useAppSelector((state) => state.offers.city);
   const cardsSortingType = useAppSelector((state) => state.offers.sortingType);
   const allOffers = useAppSelector((state) => state.offers.offers);
-  const isOffersLoaded = useAppSelector((state) => state.loading.offersFetchingStatus)
-    === RequestStatus.Success;
+  // const isOffersLoaded = useAppSelector((state) => state.loading.offersFetchingStatus)
+  //   === RequestStatus.Success;
+  const isOffersLoading = useAppSelector((state) => state.loading.offersFetchingStatus);
 
   const filteredOffersByCity = allOffers.filter((offer) => offer.city.name === selectedCity);
   const sortedOffers = sortingCards[cardsSortingType](filteredOffersByCity);
@@ -24,7 +25,7 @@ export default function MainPage(): JSX.Element {
 
       <main className={classNames(
         'page__main page__main--index',
-        { 'page__main--index-empty': isOffersLoaded && !filteredOffersByCity.length }
+        { 'page__main--index-empty': !isOffersLoading && !filteredOffersByCity.length }
       )}
       >
         <h1 className="visually-hidden">Cities</h1>
@@ -32,9 +33,9 @@ export default function MainPage(): JSX.Element {
           <CitiesComponent />
         </div>
         <div className="cities">
-          {!isOffersLoaded && <LoadingComponent />}
-          {(isOffersLoaded && !filteredOffersByCity.length) && <EmptyOffersComponent city={selectedCity} />}
-          {(isOffersLoaded && !!filteredOffersByCity.length) && <OffersListComponent offers={sortedOffers} selectedCity={selectedCity} />}
+          {isOffersLoading && <LoadingComponent />}
+          {(!isOffersLoading && !filteredOffersByCity.length) && <EmptyOffersComponent city={selectedCity} />}
+          {(!isOffersLoading && !!filteredOffersByCity.length) && <OffersListComponent offers={sortedOffers} selectedCity={selectedCity} />}
         </div>
       </main>
     </div>

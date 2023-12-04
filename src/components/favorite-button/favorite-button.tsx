@@ -42,6 +42,7 @@ export default function FavoriteButtonComponent({ isFavorite, width = 18, height
         { [`${page}__bookmark-button--active`]: isActive }
       )}
       type="button"
+      data-testid='favorite-button'
     >
       <svg className={`${page}__bookmark-icon`} width={width} height={height}>
         <use xlinkHref="#icon-bookmark"></use>

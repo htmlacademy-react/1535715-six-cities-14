@@ -5,15 +5,15 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/slices/offers-slice/offers-slice';
 import { memo } from 'react';
 
-function CitiesComponent(): JSX.Element {
+export function CitiesComponent(): JSX.Element {
   const dispatch = useAppDispatch();
   const stateCity = useAppSelector((state) => state.offers.city);
 
   return (
     <section className="locations container">
-      <ul className="locations__list tabs__list">
+      <ul className="locations__list tabs__list" data-testid='cities-list'>
         {Cities.map((city) => (
-          <li key={city} className="locations__item">
+          <li key={city} className="locations__item" data-testid='city-item'>
             <Link
               onClick={() => {
                 dispatch(changeCity(city));

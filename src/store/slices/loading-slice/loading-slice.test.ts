@@ -10,7 +10,7 @@ describe('Loading slice testing', () => {
   it('set different statuses', () => {
     const resultForOffers = loadingSlice.reducer(
       undefined,
-      setOffersFetchingStatus(RequestStatus.Pending)
+      setOffersFetchingStatus(true)
     );
 
     const resultForOffer = loadingSlice.reducer(
@@ -23,7 +23,7 @@ describe('Loading slice testing', () => {
       setFavoriteFetchingStatus(RequestStatus.Error)
     );
 
-    expect(resultForOffers.offersFetchingStatus).toBe(RequestStatus.Pending);
+    expect(resultForOffers.offersFetchingStatus).toBe(true);
     expect(resultForOffer.offerFetchingStatus).toBe(RequestStatus.Success);
     expect(resultForFavorite.favoriteFecthingStatus).toBe(RequestStatus.Error);
   });
