@@ -2,12 +2,7 @@ import OfferType from '../types/offer-type';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import {
-  APIRoute,
-  AuthorizationStatus,
-  RequestStatus,
-  TIMEOUT_SHOW_ERROR,
-} from '../const';
+import { APIRoute, AuthorizationStatus, RequestStatus } from '../const';
 import {
   addNewComment,
   dropOffers,
@@ -17,8 +12,11 @@ import {
   setFullOffer,
   setNearPlaces,
   updateOfferFavoriteStatus,
-} from './slices/offers-slice';
-import { requireAuthorization, setUserData } from './slices/auth-slice';
+} from './slices/offers-slice/offers-slice';
+import {
+  requireAuthorization,
+  setUserData,
+} from './slices/auth-slice/auth-slice';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { removeToken, setToken } from '../services/token';
@@ -26,8 +24,7 @@ import {
   setFavoriteFetchingStatus,
   setOfferFetchingStatus,
   setOffersFetchingStatus,
-} from './slices/loading-slice';
-import { setError } from './slices/error-slice';
+} from './slices/loading-slice/loading-slice';
 import FullOfferType from '../types/full-offer';
 import ReviewType from '../types/review';
 import CommentType from '../types/comment';
@@ -172,11 +169,3 @@ export const logoutAction = createAsyncThunk<void, undefined, ThunkExtraType>(
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 );
-
-export const clearErrorAction = createAsyncThunk<
-  void,
-  undefined,
-  ThunkExtraType
->('clearError', (_arg, { dispatch }) => {
-  setTimeout(() => dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
-});
