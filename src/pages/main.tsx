@@ -6,14 +6,11 @@ import EmptyOffersComponent from '../components/empty-offers/empty-offers';
 import classNames from 'classnames';
 import { useAppSelector } from '../hooks';
 import { sortingCards } from '../utils/util';
-import { RequestStatus } from '../const';
 
 export default function MainPage(): JSX.Element {
   const selectedCity = useAppSelector((state) => state.offers.city);
   const cardsSortingType = useAppSelector((state) => state.offers.sortingType);
   const allOffers = useAppSelector((state) => state.offers.offers);
-  // const isOffersLoaded = useAppSelector((state) => state.loading.offersFetchingStatus)
-  //   === RequestStatus.Success;
   const isOffersLoading = useAppSelector((state) => state.loading.offersFetchingStatus);
 
   const filteredOffersByCity = allOffers.filter((offer) => offer.city.name === selectedCity);
