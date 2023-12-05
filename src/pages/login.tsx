@@ -1,3 +1,4 @@
+
 import LogoComponent from '../components/logo/logo';
 import { FormEvent, useRef, useState } from 'react';
 import { useAppDispatch } from '../hooks';
@@ -52,8 +53,8 @@ export default function LoginPage(): JSX.Element {
                 <input className="login__input form__input" type="password" name="password" placeholder="Password" required ref={userPassword} pattern="^(?=.*[a-zA-Z])(?=.*\d).+$" data-testid="passwordElement" />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
-            </form>
-          </section>
+            </form >
+          </section >
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to={AppRoute.Root} onClick={handleClick}>
@@ -61,8 +62,8 @@ export default function LoginPage(): JSX.Element {
               </Link>
             </div>
           </section>
-        </div>
-      </main>
-    </div>
+        </div >
+      </main >
+    </div >
   );
 }

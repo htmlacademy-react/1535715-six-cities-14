@@ -9,7 +9,7 @@ import { AppRoute } from '../../const';
 import { Routes, Route } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import ScrollTopComponent from '../scroll-to-top/scroll-to-top';
-import { HistoryRouter } from '../history-route/history-route';
+import { HistoryRouter } from '../history-router/history-router';
 import { browserHistory } from '../../browser-history';
 
 export default function App(): JSX.Element {

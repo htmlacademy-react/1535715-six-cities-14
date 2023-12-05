@@ -85,7 +85,7 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
   loading: {
     favoriteFecthingStatus: RequestStatus.Idle,
     offerFetchingStatus: RequestStatus.Idle,
-    offersFetchingStatus: RequestStatus.Idle,
+    offersFetchingStatus: faker.datatype.boolean(),
   },
   ...(initialState ?? {}),
 });

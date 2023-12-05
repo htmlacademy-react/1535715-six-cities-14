@@ -11,7 +11,7 @@ export default function ReviewComponent({ review }: ReviewProps): JSX.Element {
   const attributeFormatedDate = dayjs(review.date).format('YYYY-M-D');
 
   return (
-    <li className="reviews__item">
+    <li className="reviews__item" data-testid='review-item'>
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img className="reviews__avatar user__avatar" src={review.user.avatarUrl} width="54" height="54" alt="Reviews avatar" />

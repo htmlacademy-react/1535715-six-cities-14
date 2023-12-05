@@ -78,6 +78,7 @@ export default function ReviewFormComponent(): JSX.Element {
                 htmlFor={`${score}-stars`}
                 className="reviews__rating-label form__rating-label"
                 title={title}
+                data-testid='star-item'
               >
                 <svg className="form__star-image" width="37" height="33">
                   <use xlinkHref="#icon-star"></use>

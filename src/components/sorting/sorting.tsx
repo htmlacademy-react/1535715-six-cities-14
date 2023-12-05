@@ -4,7 +4,7 @@ import { SortType } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeSortingType } from '../../store/slices/offers-slice/offers-slice';
 
-function SortingComponent(): JSX.Element {
+export function SortingComponent(): JSX.Element {
   const [isOpened, setIsOpened] = useState(false);
   const [activeSortType, setActiveSortType] = useState(SortType.POPULAR);
   const dispatch = useAppDispatch();
@@ -49,6 +49,7 @@ function SortingComponent(): JSX.Element {
             tabIndex={0}
             key={sort}
             onClick={handleSortClick}
+            data-testid='sort-item'
           >
             {sort}
           </li>

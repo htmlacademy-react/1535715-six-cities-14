@@ -70,6 +70,7 @@ export default function MapComponent({ city, points, page, selectedPoint }: MapP
         maxWidth: '1144px',
         margin: '0 auto',
       }}
+      data-testid='map'
     />
   );
 }

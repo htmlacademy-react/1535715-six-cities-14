@@ -12,7 +12,7 @@ type CardProps = {
   page: string;
 }
 
-function CardComponent({ offer, page }: CardProps): JSX.Element {
+export function CardComponent({ offer, page }: CardProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   function handleMouseEnter() {
@@ -29,6 +29,7 @@ function CardComponent({ offer, page }: CardProps): JSX.Element {
       onMouseLeave={handleMouseLeave}
       id={offer.id}
       className={`${page}__card place-card`}
+      data-testid='card-item'
     >
       {offer.isPremium && (
         <div className="place-card__mark">
